@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="independence">#555B6E</color>
+    <color name="morningBlue">#89B0AE</color>
+    <color name="powderBlue">#BEE3DB</color>
+    <color name="cultured">#FAF9F(</color>
+    <color name="apricot">#FFD6BA</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
