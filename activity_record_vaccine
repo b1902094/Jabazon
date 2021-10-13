@@ -13,11 +13,10 @@
         android:layout_height="match_parent"
         android:padding="12sp">
 
-
         <ImageButton
             android:id="@+id/image_btn_home"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
             android:background="@color/apricot"
@@ -177,29 +176,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_vaccineExpDate"
             android:weightSum="2">
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/image_button_calendar_icon"
-                android:src="@drawable/calendar_icon"
-                android:scaleType="centerCrop"
-                android:background="@color/white"
-                android:contentDescription="This is a calendar button" />
+
             <EditText
-                android:id="@+id/edit_text_dateofAppointment"
+                android:id="@+id/edit_text_vaccineExpDate"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:autofillHints="Date of birth"
-                android:ems="15"
-                android:hint="Enter your date of appointment"
+                android:autofillHints="expiry date"
+                android:ems="10"
+                android:hint="Vaccine Expiry Date"
+                android:textAlignment="center"
                 android:inputType="date"
                 android:textColor="@color/black"/>
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/image_button_calendar_icon"
+                android:src="@drawable/btn_calendar"
+                android:scaleType="centerCrop"
+                android:background="@color/white"
+                android:contentDescription="Calendar button" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -219,6 +222,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
                 android:text="Quantity Administered"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/independence"
                 android:textSize="15sp"
@@ -250,45 +254,46 @@
             <TextView
                 android:id="@+id/text_view_vaccineQtyAvail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif"
-                android:text="Quantity Available"
+                android:text="   Quantity Available     "
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAlignment="center"
                 android:textColor="@color/independence"
                 android:textSize="15sp"
                 android:textStyle="italic"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"/>
 
             <EditText
-                app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/edit_text_vaccineQtyAvail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="16dp"
-                android:autofillHints="quantity administered"
+                android:layout_height="match_parent"
+                android:autofillHints="quantity available"
                 android:ems="4"
-                android:layout_weight="1"
                 android:hint="Quantity"
                 android:inputType="number"
+                android:textAlignment="center"
                 android:textColor="@color/independence"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="HardcodedText,DuplicateSpeakableTextCheck,TextContrastCheck" />
 
         </LinearLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/action_btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Record vaccine"
-        android:src="@drawable/btn_add"
-        android:paddingTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/linear_layout_qtyAvail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="HardcodedText,ImageContrastCheck" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Record vaccine"
+            android:src="@drawable/btn_add"
+            android:paddingTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_qtyAvail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/apricot"
+            tools:ignore="HardcodedText,ImageContrastCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
