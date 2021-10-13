@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    tools:context=".record_vaccine">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cultured">
+
+        <ImageButton
+            android:id="@+id/image_btn_home"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/apricot"
+            android:contentDescription="Home"
+            android:scaleType="centerCrop"
+            android:src="@drawable/btn_home"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/text_view_record_vaccine_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Record Vaccine"
+            android:layout_below="@+id/image_btn_home"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="HardcodedText" />
+
+
+        <TextView
+            android:id="@+id/text_view_vaccineID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/independence"
+            android:text="Vaccine ID"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/text_view_record_vaccine_title"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edit_text_vaccineID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_vaccineID"
+            android:autofillHints="vaccine id"
+            android:ems="30"
+            android:hint="Enter Vaccine ID"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/independence"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_view_vaccineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/independence"
+            android:text="Vaccine Name"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/edit_text_vaccineID"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edit_text_vaccineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_vaccineName"
+            android:autofillHints="vaccine id"
+            android:ems="30"
+            android:hint="Vaccine Name"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/independence"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,DuplicateSpeakableTextCheck,TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_view_vaccineManufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/independence"
+            android:text="Vaccine Manufacturer"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/edit_text_vaccineName"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edit_text_vaccineManufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_vaccineManufacturer"
+            android:autofillHints="vaccine id"
+            android:ems="30"
+            android:hint="Enter Manufacturer"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/independence"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_view_vaccineBatchNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/independence"
+            android:text="Vaccine Batch Number"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/edit_text_vaccineManufacturer"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edit_text_vaccineBatchNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_vaccineBatchNo"
+            android:autofillHints="vaccine batch number"
+            android:ems="30"
+            android:hint="Vaccine Name"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/independence"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/text_view_vaccineExpDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/independence"
+            android:text="Vaccine Expiry Date"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:fontFamily="sans-serif"
+            android:layout_below="@+id/edit_text_vaccineBatchNo"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edit_text_vaccineExpDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_view_vaccineExpDate"
+            android:autofillHints="vaccine expiry date"
+            android:ems="10"
+            android:hint="Enter Expiry Date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            android:textColor="@color/independence"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,TextContrastCheck" />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_qtyAvail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_vaccineExpDate">
+
+            <TextView
+                android:id="@+id/text_view_vaccineQtyAvail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/independence"
+                android:text="Quantity Available"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:fontFamily="sans-serif"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/edit_text_vaccineQtyAvail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:autofillHints="quantity administered"
+                android:ems="4"
+                android:hint="Quantity"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textColor="@color/independence"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText,DuplicateSpeakableTextCheck,TextContrastCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_qtyAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_layout_qtyAvail">
+
+            <TextView
+                android:id="@+id/text_view_vaccineQtyAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_vaccineQtyAvail"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="Quantity Administered"
+                android:textAlignment="center"
+                android:textColor="@color/independence"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                tools:ignore="HardcodedText,NotSibling" />
+
+            <EditText
+                android:id="@+id/edit_text_vaccineQtyAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_text_vaccineQtyAvail"
+                android:autofillHints="quantity administered"
+                android:ems="4"
+                android:hint="Quantity"
+                android:inputType="number"
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:textColor="@color/independence"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText,DuplicateSpeakableTextCheck,TextContrastCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right"
+            tools:ignore="MissingConstraints">
+
+            <ImageButton
+                android:id="@+id/image_btn_calendar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@color/cultured"
+                android:contentDescription="Calendar"
+                android:scaleType="centerCrop"
+                android:src="@drawable/btn_calendar"
+                tools:ignore="HardcodedText,NotSibling,ImageContrastCheck" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Record vaccine"
+        android:src="@drawable/btn_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText,ImageContrastCheck" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>
