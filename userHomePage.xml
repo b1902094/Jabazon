@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_view_introUserHP"
+            android:fontFamily="sans-serif"
+            android:padding="12dp"
+            android:textColor="@color/independence"
+            android:textSize="24sp"
+            android:text="How can we help?"/>
+
+    <androidx.cardview.widget.CardView
+        android:elevation="10dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_introUserHP"
+        android:id="@+id/cardView_healthcareCentresUser"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="15dp"
+        android:backgroundTint="@color/powderBlue">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/healthcare_centres"
+                android:contentDescription="This is a healthcare picture"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/text_view_healthcareCentres"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Healthcare Centres"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:elevation="10dp"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView_healthcareCentresUser"
+            android:id="@+id/cardView_vaccination_appointmentUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="15dp"
+            android:backgroundTint="@color/powderBlue">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:contentDescription="This is a vaccination appointment picture"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/vaccination_appointment" />
+
+                <TextView
+                    android:id="@+id/text_view_vaccinationAppointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Vaccination Appointment"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:elevation="10dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView_vaccination_appointmentUser"
+            android:id="@+id/cardView_availablevaccinesUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="15dp"
+            android:backgroundTint="@color/powderBlue">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/vaccines"
+                    android:contentDescription="This is a vaccination appointment picture"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/text_view_vaccinesUser"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Available vaccines"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:elevation="10dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView_availablevaccinesUser"
+            android:id="@+id/cardView_statusQuestionnaire"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="15dp"
+            android:backgroundTint="@color/powderBlue">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/status_questionnaire"
+                    android:contentDescription="This is a vaccine picture"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/text_view_statusQuestionnaire"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Status Questionnaire"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:elevation="10dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView_statusQuestionnaire"
+            android:id="@+id/cardView_helpdesk"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="15dp"
+            android:backgroundTint="@color/powderBlue">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/helpdesk"
+                    android:contentDescription="This is a helpdesk picture"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/text_view_helpdesk"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="HelpDesk"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:elevation="10dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardView_helpdesk"
+            android:id="@+id/cardView_faqs"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="15dp"
+            android:backgroundTint="@color/powderBlue">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/faqs"
+                    android:contentDescription="This is a faq picture"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cardView_text_view_faqs"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="FAQs"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</ScrollView>
