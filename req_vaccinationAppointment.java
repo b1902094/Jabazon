@@ -6,8 +6,6 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,13 +21,13 @@ public class vaccinationAppointment extends AppCompatActivity {
     Spinner spinnerHealthProblems2;
     Spinner vaccinesChosen;
     ImageButton imageButtonCalendar ;
-    Button submitButton;
     EditText edittextName;
     EditText phoneNo;
     EditText ICPassport;
     EditText appointmentDateDOB;
     EditText editTextEmail;
     EditText otherHealthProblems;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
     boolean isUsernameValid,isEmailValid,isPhoneNoValid,isICPassportValid;
 
     @Override
@@ -71,64 +69,62 @@ public class vaccinationAppointment extends AppCompatActivity {
                 datePickerDialog.show();
 
             });
-
-            submitButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dataValidation();
-                }
+            Button submitButton = findViewById(R.id.button_submit);
+            submitButton.setOnClickListener(view -> {
+                dataValidation();
             });
 
 
         }catch(Exception ex){
             Toast.makeText(vaccinationAppointment.this,ex.getMessage(),Toast.LENGTH_LONG).show();
-    }
-
-
+        }
     }
 
     private void dataValidation(){
         if(edittextName.getText().toString().isEmpty()){
+            edittextName.setError("Please fill in the field");
             isUsernameValid = false;
         }else{
             isUsernameValid = true;
         }
         if(editTextEmail.getText().toString().isEmpty()){
+            editTextEmail.setError("Please fill in the field");
             isEmailValid = false;
-        }else if(Patterns.EMAIL_ADDRESS.matcher(editTextEmail.toString()).matches()){
+        }else if(!(editTextEmail.getText().toString()).matches(emailPattern)){
             editTextEmail.setError("Please enter a valid email.");
             isEmailValid = false;
         }else{
             isEmailValid = true;
         }
         if(phoneNo.getText().toString().isEmpty()){
+            phoneNo.setError("Please fill in the field");
             isPhoneNoValid = false;
         }else{
             isPhoneNoValid = true;
         }
         if(ICPassport.getText().toString().isEmpty()){
+            ICPassport.setError("Please fill in the field");
             isICPassportValid = false;
         }else{
             isICPassportValid = true;
         }
-        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid ){
-            AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(getApplicationContext());
+        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid ) {
+            AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(this);
             ADBuilder1.setMessage("Appointment request has been made. Please wait for confirmation.");
             ADBuilder1.setCancelable(true);
-            ADBuilder1.setPositiveButton("OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                            Intent intent = new Intent (getApplicationContext(),UserActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+            ADBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+                    startActivity(intent);
+                }
+            });
             AlertDialog alert11 = ADBuilder1.create();
             alert11.show();
         }
         else{
             Toast.makeText(getApplicationContext(),"Please fill in all the information!",Toast.LENGTH_LONG).show();
         }
-        }
     }
+}
