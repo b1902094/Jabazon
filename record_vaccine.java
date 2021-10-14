@@ -1,9 +1,11 @@
-package com.yashika.adminhomepage;
+package com.yashika.jabazon_admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -27,7 +29,8 @@ public class record_vaccine extends AppCompatActivity {
             EditText editTextQtyAdmin = findViewById(R.id.edit_text_vaccineQtyAdmin);
 
             ImageButton imgBtnHome = findViewById(R.id.image_btn_home);
-            ImageButton imgBtnCalendar = findViewById(R.id.image_btn_calendar);
+            ImageButton imgBtnCalendar = findViewById(R.id.img_btn_calendar);
+            ImageButton imgBtnAdd = findViewById(R.id.action_btn_add);
             imgBtnCalendar.setOnClickListener(v -> {
 
                 Calendar calendar = Calendar.getInstance();
@@ -41,9 +44,25 @@ public class record_vaccine extends AppCompatActivity {
                 datePickerDialog.show();
             });
 
+            imgBtnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(record_vaccine.this, "Vaccine Recorded",Toast.LENGTH_SHORT);
+                }
+            });
+
+            imgBtnHome.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(record_vaccine.this, admin_activity.class);
+                    startActivity(intent);
+                }
+            });
+
 
         } catch (Exception exception){
             Toast.makeText(record_vaccine.this, exception.getMessage(), Toast.LENGTH_LONG);
         }
+
     }
 }
