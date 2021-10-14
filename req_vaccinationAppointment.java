@@ -121,6 +121,7 @@ public class vaccinationAppointment extends AppCompatActivity {
                 }
             });
             AlertDialog alert11 = ADBuilder1.create();
+            alert11.setTitle("Request successful");
             alert11.show();
         }
         else{
