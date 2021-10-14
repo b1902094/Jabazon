@@ -1,6 +1,7 @@
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.EditText;
@@ -14,13 +15,15 @@ import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
-    EditText usernameTextView;
-    EditText passwordTextView;
-    EditText reenterPasswordTextView;
-    EditText emailTextView;
-    EditText ICPassportTextView;
-    Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$]{8,24}");
-    boolean isUsernameValid,isPasswordValid,isEmailValid;
+    EditText usernameEditText;
+    EditText passwordEditText;
+    EditText reenterPasswordEditText;
+    EditText emailEditText;
+    EditText ICPassportEditText;
+    String email;
+    Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$\\*]{3,24}");
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
+    boolean isUsernameValid,isPasswordValid,isEmailValid,isICPassportValid;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,11 @@ public class SignUp extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Jabazon");
 
-        usernameTextView = findViewById(R.id.text_view_input_username);
-        passwordTextView = findViewById(R.id.text_view_input_password);
-        reenterPasswordTextView = findViewById(R.id.text_view_input_reenterPassword);
-        emailTextView = findViewById(R.id.text_view_input_email);
-        ICPassportTextView = findViewById(R.id.text_view_input_ICPassport);
+        usernameEditText = findViewById(R.id.text_view_input_username);
+        passwordEditText = findViewById(R.id.text_view_input_password);
+        reenterPasswordEditText = findViewById(R.id.text_view_input_reenterPassword);
+        emailEditText = findViewById(R.id.text_view_input_email);
+        ICPassportEditText = findViewById(R.id.text_view_input_ICPassport);
 
         ImageButton tickIconImageButton = findViewById(R.id.image_button_tick_icon);
         tickIconImageButton.setOnClickListener(view -> {
@@ -44,43 +47,50 @@ public class SignUp extends AppCompatActivity {
 
     private void checkDataValidation(){
         //to check if username is valid
-        if(usernameTextView.getText().toString().isEmpty()){
+        if(usernameEditText.getText().toString().isEmpty()){
+            usernameEditText.setError("Please enter this field");
             isUsernameValid = false;
         }else{
             isUsernameValid = true;
         }
         //to check if email is valid
-        if(emailTextView.getText().toString().isEmpty()){
+        if(emailEditText.getText().toString().isEmpty()){
+            emailEditText.setError("Please enter this field");
             isEmailValid = false;
-        }else if( Patterns.EMAIL_ADDRESS.matcher(emailTextView.toString()).matches()){
-            emailTextView.setError("Please enter a valid email");
+        }else if(!(emailEditText.getText().toString()).matches(emailPattern)){
+            emailEditText.setError("Invalid Email Address");
             isEmailValid = false;
         }
         else{
             isEmailValid = true;
         }
         //to check if password is valid
-        if(passwordTextView.getText().toString().isEmpty()){
+        if(passwordEditText.getText().toString().isEmpty()){
+            passwordEditText.setError("Please enter this field");
             isPasswordValid = false;
-        }else if((passwordTextView.getText().toString().length() >= 8) && (PASSWORD_PATTERN.matcher(passwordTextView.toString()).matches())) {
-            passwordTextView.setError("Please make your password length more than " +
-                    "8 and include numeric digits and symbols in your password.");
+        }else if(!PASSWORD_PATTERN.matcher(passwordEditText.getText().toString()).matches()) {
+            passwordEditText.setError("Please include numeric digits and symbols in your password.");
             isPasswordValid = false;
-        }else if((passwordTextView.getText().toString())!= reenterPasswordTextView.getText().toString()){
-            reenterPasswordTextView.setError("Please ensure the password you've entered are the same as the above.");
+        }else if(!(passwordEditText.getText().toString().equals(reenterPasswordEditText.getText().toString()))){
+            reenterPasswordEditText.setError("Please ensure the password you've entered are the same as the above.");
             isPasswordValid =false;
         }else{
             isPasswordValid = true;
         }
-        if(isUsernameValid&&isPasswordValid&&isEmailValid){
-            Toast.makeText(getApplicationContext(),"Account created successfully!",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent (getApplicationContext(),UserActivity.class);
+        //to check if the IC Passport field is not empty
+        if(ICPassportEditText.getText().toString().isEmpty()){
+            ICPassportEditText.setError("Please enter this field");
+            isICPassportValid = false;
+        }else{
+            isICPassportValid = true;
+        }
+
+        if(isUsernameValid&&isPasswordValid&&isEmailValid && isICPassportValid){
+            //Toast.makeText(getApplicationContext(),"Account created successfully!",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent (SignUp.this,UserActivity.class);
             startActivity(intent);
 
         }
-
-
     }
-
 
 }
