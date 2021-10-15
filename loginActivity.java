@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.ConditionVariable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,13 +13,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.vicky.jabazon.Util.User;
-import com.vicky.jabazon.data.DatabaseHandler;
 
 public class LoginActivity extends AppCompatActivity {
     EditText editTextUsername;
@@ -29,8 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     Button button_login;
     SharedPreferences sharedPreferences;
 
-    boolean hasUsername;
-    boolean hasPassword;
+    boolean hasUsername, hasPassword,isUserFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,13 +79,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 hideKeyboard(LoginActivity.this, view);
                 DatabaseHandler Jab_DB = new DatabaseHandler((LoginActivity.this));
-                User user = Jab_DB.getUser(editTextUsername.getText().toString(),
-                        editTextPassword.getText().toString());
-                if(editTextUsername.getText().toString().equals("jabazonAdmin")&& editTextPassword.getText().toString().equals("Jabazon123*")){
-                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
-                }else if( editTextUsername.getText().toString().equals("John")&& editTextPassword.getText().toString().equals("John12345*")){
+                User user = Jab_DB.getUser(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                if(user != null){
+                    Util.USER = user;
+                    //Toast.makeText(LoginActivity.this,String.valueOf(user.getUserName()),Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(),UserActivity.class));
-                }else {
+                }else if(editTextUsername.getText().toString().equals("jabazonAdmin")&& editTextPassword.getText().toString().equals("Jabazon123*")){
+                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                }
+                else {
                     Snackbar.make(findViewById(R.id.constraint_layout_login),"Username or password is wrong !", BaseTransientBottomBar.LENGTH_INDEFINITE).setAction("Close", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -138,16 +135,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveLoginDetails() {
-            sharedPreferences = getSharedPreferences("LoginDate", MODE_PRIVATE);
-            String username = editTextUsername.getText().toString();
-            String password = editTextPassword.getText().toString();
-            boolean remember = checkBox_rememberMe.isChecked();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("username", username);
-            editor.putString("password", password);
-            editor.putBoolean("remember me", remember);
-            editor.apply();
-        }
+        sharedPreferences = getSharedPreferences("LoginDate", MODE_PRIVATE);
+        String username = editTextUsername.getText().toString();
+        String password = editTextPassword.getText().toString();
+        boolean remember = checkBox_rememberMe.isChecked();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.putBoolean("remember me", remember);
+        editor.apply();
+    }
 
     public void updateBtnLogin(){
 
