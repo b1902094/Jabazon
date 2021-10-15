@@ -1,12 +1,16 @@
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.ConditionVariable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -15,6 +19,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.vicky.jabazon.Util.User;
+import com.vicky.jabazon.data.DatabaseHandler;
 
 public class LoginActivity extends AppCompatActivity {
     EditText editTextUsername;
@@ -76,6 +82,10 @@ public class LoginActivity extends AppCompatActivity {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard(LoginActivity.this, view);
+                DatabaseHandler Jab_DB = new DatabaseHandler((LoginActivity.this));
+                User user = Jab_DB.getUser(editTextUsername.getText().toString(),
+                        editTextPassword.getText().toString());
                 if(editTextUsername.getText().toString().equals("jabazonAdmin")&& editTextPassword.getText().toString().equals("Jabazon123*")){
                     startActivity(new Intent(getApplicationContext(),AdminActivity.class));
                 }else if( editTextUsername.getText().toString().equals("John")&& editTextPassword.getText().toString().equals("John12345*")){
@@ -142,6 +152,11 @@ public class LoginActivity extends AppCompatActivity {
     public void updateBtnLogin(){
 
         button_login.setEnabled(hasUsername&&hasPassword);
+    }
+
+    private void hideKeyboard(Context context, View view){
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }
