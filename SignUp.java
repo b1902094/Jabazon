@@ -1,14 +1,20 @@
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.vicky.jabazon.Util.User;
+import com.vicky.jabazon.data.DatabaseHandler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,5 +98,15 @@ public class SignUp extends AppCompatActivity {
 
         }
     }
+
+    public void signUpButtonOnClick(View view){
+        DatabaseHandler Jab_DB = new DatabaseHandler(this);
+        User user = new User();
+        user.setUserName(usernameEditText.getText().toString());
+        user.setUserPassword(passwordEditText.getText().toString());
+        Jab_DB.addUser(user);
+        finish();
+    }
+
 
 }
