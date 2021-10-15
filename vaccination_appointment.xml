@@ -7,8 +7,9 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_vaccination"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="12sp"
         tools:context=".vaccinationAppointment">
 
@@ -19,7 +20,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Vaccination Appointment"
             android:textColor="@color/independence"
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
@@ -33,10 +34,11 @@
             android:id="@+id/text_view_name"/>
 
         <EditText
+            android:autofillHints="name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="15"
             android:hint="Enter your name"
             android:inputType="textPersonName"
             android:id="@+id/edit_text_name"
@@ -55,7 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="15"
+            android:autofillHints="emailAddress"
             android:hint="Enter your email"
             android:inputType="textEmailAddress"
             android:id="@+id/edit_text_email"
@@ -74,7 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="17"
+            android:ems="15"
+            android:autofillHints="phone"
             android:hint="Enter your contact number"
             android:inputType="phone"
             android:id="@+id/edit_text_contactNumber"
@@ -93,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:ems="10"
+            android:ems="15"
             android:hint="Enter your IC/Passport"
             android:inputType="phone"
             android:id="@+id/edit_text_ICPassport"
@@ -109,6 +113,7 @@
             android:textSize="18sp"
             android:id="@+id/text_view_healthProblems" />
         <LinearLayout
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/linear_layout_health_problems"
@@ -119,22 +124,21 @@
             <Spinner
                 android:id="@+id/spinner_healthproblem1"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:prompt="@string/select_one"/>
+                android:layout_width="wrap_content"
+                android:layout_weight="1" />
             <Spinner
                 android:id="@+id/spinner_healthproblem2"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:prompt="@string/select_one"/>
+                android:layout_width="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
         <EditText
+            android:autofillHints="name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="20"
-            android:hint="Enter other health problems"
+            android:hint="other health problems(optional)"
             android:inputType="text"
             android:id="@+id/edit_text_other_health_problems"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,13 +162,13 @@
             <EditText
                 android:id="@+id/edit_text_dateofAppointment"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:autofillHints="Date of birth"
                 android:ems="15"
-                android:hint="Enter your date of appointment"
+                android:hint="Enter date of appointment"
                 android:inputType="date"
                 android:textColor="@color/black"/>
         </LinearLayout>
@@ -186,10 +190,9 @@
 
             <Spinner
                 android:id="@+id/spinner_vaccinesChosen"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:prompt="@string/select_one"/>
+                android:layout_weight="1" />
         </LinearLayout>
 
         <Button
