@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -28,7 +32,8 @@ public class vaccinationAppointment extends AppCompatActivity {
     EditText editTextEmail;
     EditText otherHealthProblems;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
-    boolean isUsernameValid,isEmailValid,isPhoneNoValid,isICPassportValid;
+    boolean isUsernameValid,isEmailValid,isPhoneNoValid,isICPassportValid, isSpinner1Valid
+            ,isSpinner2Valid, isVaccineChosenValid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +113,27 @@ public class vaccinationAppointment extends AppCompatActivity {
         }else{
             isICPassportValid = true;
         }
-        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid ) {
+        if(spinnerHealthProblems2.getSelectedItem().equals("Select One")){
+            Toast.makeText(vaccinationAppointment.this,"Please select one health problems",Toast.LENGTH_LONG).show();
+            isSpinner2Valid = false;
+        }
+        else {
+            isSpinner2Valid = true;
+        }
+        if(spinnerHealthProblems1.getSelectedItem().equals("Select One")){
+            Toast.makeText(vaccinationAppointment.this,"Please select one health problems",Toast.LENGTH_LONG).show();
+            isSpinner1Valid = false;
+        }else{
+            isSpinner1Valid = true;
+        }
+        if(vaccinesChosen.getSelectedItem().equals("Select One")){
+            Toast.makeText(vaccinationAppointment.this,"Please select one vaccine",Toast.LENGTH_SHORT).show();
+            isVaccineChosenValid = false;
+        }else{
+            isVaccineChosenValid = true;
+        }
+
+        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid && isSpinner1Valid && isSpinner2Valid&& isVaccineChosenValid) {
             AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(this);
             ADBuilder1.setMessage("Appointment request has been made. Please wait for confirmation.");
             ADBuilder1.setCancelable(true);
@@ -125,7 +150,13 @@ public class vaccinationAppointment extends AppCompatActivity {
             alert11.show();
         }
         else{
-            Toast.makeText(getApplicationContext(),"Please fill in all the information!",Toast.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction("Close", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            edittextName.requestFocus();
+                        }
+                    }).show();
         }
     }
 }
