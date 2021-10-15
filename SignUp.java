@@ -1,22 +1,15 @@
 
-import android.content.Context;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.vicky.jabazon.Util.User;
-import com.vicky.jabazon.data.DatabaseHandler;
-
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
@@ -26,7 +19,6 @@ public class SignUp extends AppCompatActivity {
     EditText reenterPasswordEditText;
     EditText emailEditText;
     EditText ICPassportEditText;
-    String email;
     Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$\\*]{3,24}");
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
     boolean isUsernameValid,isPasswordValid,isEmailValid,isICPassportValid;
@@ -43,12 +35,6 @@ public class SignUp extends AppCompatActivity {
         reenterPasswordEditText = findViewById(R.id.text_view_input_reenterPassword);
         emailEditText = findViewById(R.id.text_view_input_email);
         ICPassportEditText = findViewById(R.id.text_view_input_ICPassport);
-
-        ImageButton tickIconImageButton = findViewById(R.id.image_button_tick_icon);
-        tickIconImageButton.setOnClickListener(view -> {
-            checkDataValidation();
-
-        });
     }
 
     private void checkDataValidation(){
@@ -92,20 +78,36 @@ public class SignUp extends AppCompatActivity {
         }
 
         if(isUsernameValid&&isPasswordValid&&isEmailValid && isICPassportValid){
-            //Toast.makeText(getApplicationContext(),"Account created successfully!",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent (SignUp.this,UserActivity.class);
-            startActivity(intent);
-
+            AlertDialog.Builder ADBuilder2 = new AlertDialog.Builder(this);
+            ADBuilder2.setMessage("Account has been created! Please proceed to login");
+            ADBuilder2.setCancelable(true);
+            ADBuilder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            AlertDialog alert22 = ADBuilder2.create();
+            alert22.setTitle("Account created successfully");
+            alert22.show();
         }
     }
 
     public void signUpButtonOnClick(View view){
         DatabaseHandler Jab_DB = new DatabaseHandler(this);
-        User user = new User();
-        user.setUserName(usernameEditText.getText().toString());
-        user.setUserPassword(passwordEditText.getText().toString());
-        Jab_DB.addUser(user);
-        finish();
+        boolean isExist = Jab_DB.isUsernameExists(usernameEditText.getText().toString());
+        if(isExist){
+            Toast.makeText(SignUp.this, "Username is already exist!", Toast.LENGTH_SHORT).show();
+        }else {
+            checkDataValidation();
+            User user = new User();
+            user.setUserName(usernameEditText.getText().toString());
+            user.setUserPassword(passwordEditText.getText().toString());
+            Jab_DB.addUser(user);
+            finish();
+        }
     }
 
 
