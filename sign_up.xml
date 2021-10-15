@@ -140,6 +140,7 @@
         android:background="@color/powderBlue"
         android:scaleType="centerCrop"
         android:contentDescription="This is a tick icon"
+        android:onClick="signUpButtonOnClick"
         tools:ignore="Hardcoded text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
