@@ -61,7 +61,7 @@ public class SignUp extends AppCompatActivity {
             passwordEditText.setError("Please enter this field");
             isPasswordValid = false;
         }else if(!PASSWORD_PATTERN.matcher(passwordEditText.getText().toString()).matches()) {
-            passwordEditText.setError("Please include numeric digits and symbols in your password.");
+            passwordEditText.setError("Please include numeric digits and symbols like !@#$* in your password.");
             isPasswordValid = false;
         }else if(!(passwordEditText.getText().toString().equals(reenterPasswordEditText.getText().toString()))){
             reenterPasswordEditText.setError("Please ensure the password you've entered are the same as the above.");
