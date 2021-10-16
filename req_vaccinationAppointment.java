@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -25,6 +26,8 @@ public class vaccinationAppointment extends AppCompatActivity {
     Spinner spinnerHealthProblems2;
     Spinner vaccinesChosen;
     ImageButton imageButtonCalendar ;
+    TextView healthProblemsTextView;
+    TextView vaccinesChosenTextView;
     EditText edittextName;
     EditText phoneNo;
     EditText ICPassport;
@@ -47,6 +50,8 @@ public class vaccinationAppointment extends AppCompatActivity {
             phoneNo = findViewById(R.id.edit_text_contactNumber);
             ICPassport = findViewById(R.id.edit_text_ICPassport);
             otherHealthProblems=findViewById(R.id.edit_text_other_health_problems);
+            healthProblemsTextView = findViewById(R.id.text_view_healthProblems);
+            vaccinesChosenTextView = findViewById(R.id.text_view_select_vaccine);
 
             spinnerHealthProblems1 = findViewById(R.id.spinner_healthproblem1);
             ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.health_problems, android.R.layout.simple_spinner_item);
@@ -114,26 +119,23 @@ public class vaccinationAppointment extends AppCompatActivity {
             isICPassportValid = true;
         }
         if(spinnerHealthProblems2.getSelectedItem().equals("Select One")){
-            Toast.makeText(vaccinationAppointment.this,"Please select one health problems",Toast.LENGTH_LONG).show();
             isSpinner2Valid = false;
         }
         else {
             isSpinner2Valid = true;
         }
         if(spinnerHealthProblems1.getSelectedItem().equals("Select One")){
-            Toast.makeText(vaccinationAppointment.this,"Please select one health problems",Toast.LENGTH_LONG).show();
             isSpinner1Valid = false;
         }else{
             isSpinner1Valid = true;
         }
         if(vaccinesChosen.getSelectedItem().equals("Select One")){
-            Toast.makeText(vaccinationAppointment.this,"Please select one vaccine",Toast.LENGTH_SHORT).show();
             isVaccineChosenValid = false;
         }else{
             isVaccineChosenValid = true;
         }
 
-        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid && isSpinner1Valid && isSpinner2Valid&& isVaccineChosenValid) {
+        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid && isSpinner1Valid && isSpinner2Valid && isVaccineChosenValid) {
             AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(this);
             ADBuilder1.setMessage("Appointment request has been made. Please wait for confirmation.");
             ADBuilder1.setCancelable(true);
@@ -149,6 +151,25 @@ public class vaccinationAppointment extends AppCompatActivity {
             alert11.setTitle("Request successful");
             alert11.show();
         }
+        else if((!isSpinner2Valid) && (!isSpinner1Valid)){
+            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Select 'none' if you have no health problems ",
+                    BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction("Close", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            healthProblemsTextView.setError("Please select at the below spinner");
+                        }
+                    }).show();
+        }else if(!isVaccineChosenValid){
+            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please select the vaccine you desired",
+                    BaseTransientBottomBar.LENGTH_INDEFINITE)
+                    .setAction("Close", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                           vaccinesChosenTextView.setError("Please select the vaccine at the spinner on the right");
+                        }
+                    }).show();
+        }
         else{
             Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction("Close", new View.OnClickListener() {
@@ -159,4 +180,3 @@ public class vaccinationAppointment extends AppCompatActivity {
                     }).show();
         }
     }
-}
