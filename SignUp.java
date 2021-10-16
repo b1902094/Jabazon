@@ -100,6 +100,8 @@ public class SignUp extends AppCompatActivity {
         boolean isExist = Jab_DB.isUsernameExists(usernameEditText.getText().toString());
         if(isExist){
             Toast.makeText(SignUp.this, "Username is already exist!", Toast.LENGTH_SHORT).show();
+            usernameEditText.setText("");
+            usernameEditText.requestFocus();
         }else {
             checkDataValidation();
             User user = new User();
