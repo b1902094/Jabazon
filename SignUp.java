@@ -28,8 +28,6 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
-        getSupportActionBar().setTitle("Jabazon");
-
         usernameEditText = findViewById(R.id.text_view_input_username);
         passwordEditText = findViewById(R.id.text_view_input_password);
         reenterPasswordEditText = findViewById(R.id.text_view_input_reenterPassword);
@@ -61,7 +59,7 @@ public class SignUp extends AppCompatActivity {
             passwordEditText.setError("Please enter this field");
             isPasswordValid = false;
         }else if(!PASSWORD_PATTERN.matcher(passwordEditText.getText().toString()).matches()) {
-            passwordEditText.setError("Please include numeric digits and symbols in your password.");
+            passwordEditText.setError("Please include numeric digits and symbols like !@#$* in your password.");
             isPasswordValid = false;
         }else if(!(passwordEditText.getText().toString().equals(reenterPasswordEditText.getText().toString()))){
             reenterPasswordEditText.setError("Please ensure the password you've entered are the same as the above.");
@@ -79,18 +77,18 @@ public class SignUp extends AppCompatActivity {
 
         if(isUsernameValid&&isPasswordValid&&isEmailValid && isICPassportValid){
             AlertDialog.Builder ADBuilder2 = new AlertDialog.Builder(this);
+            ADBuilder2.setTitle("Account created successfully");
             ADBuilder2.setMessage("Account has been created! Please proceed to login");
-            ADBuilder2.setCancelable(true);
+            ADBuilder2.setCancelable(false);
             ADBuilder2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+                    dialogInterface.cancel();
                 }
             });
             AlertDialog alert22 = ADBuilder2.create();
-            alert22.setTitle("Account created successfully");
             alert22.show();
         }
     }
@@ -108,7 +106,6 @@ public class SignUp extends AppCompatActivity {
             user.setUserName(usernameEditText.getText().toString());
             user.setUserPassword(passwordEditText.getText().toString());
             Jab_DB.addUser(user);
-            finish();
         }
     }
 
