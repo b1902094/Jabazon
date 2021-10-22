@@ -98,6 +98,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return user;
     }
-
+    
+    public void updateUser(@NonNull User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = Util.KEY_USERNAME + " =? ";
+        ContentValues cv = new ContentValues();
+        cv.put(Util.KEY_USERNAME, user.getUserName());
+        cv.put(Util.KEY_PASSWORD, user.getUserPassword());
+        db.update(Util.USER_TABLE_NAME, cv, whereClause, new String[]{String.valueOf(user.getUserName())});
+        db.close();
+    }
 
 }
