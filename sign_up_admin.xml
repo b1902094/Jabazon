@@ -21,7 +21,7 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:textSize="24sp"
             android:id="@+id/text_view_adminSignUpIntro"
-            android:textColor="@color/black" />
+            android:textColor="@color/independence" />
 
     <LinearLayout
         android:id="@+id/linear_layout_centresName"
