@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@id/linear_layout_centresName"
             android:id="@+id/text_view_select_healthcare_centre"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Select healthcare centre"
             android:textSize="18sp"/>
