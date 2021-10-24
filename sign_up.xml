@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraint_layout_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SignUp"
+    tools:context=".SignUpUser"
     android:background="@color/cultured">
-
 
     <TextView
         android:id="@+id/text_view_sign_up_title"
@@ -28,19 +28,19 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_sign_up_title"/>
-        <EditText
-            android:id="@+id/text_view_input_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:autofillHints="username"
-            android:ems="20"
-            android:textSize="15sp"
-            android:hint="Enter your username"
-            android:inputType="textPersonName"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_username"/>
+    <EditText
+        android:id="@+id/text_view_input_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autofillHints="username"
+        android:ems="20"
+        android:textSize="15sp"
+        android:hint="ex:Jane@jabazonPatient.com"
+        android:inputType="textPersonName"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_username"/>
     <TextView
         android:id="@+id/text_view_password"
         android:layout_width="wrap_content"
@@ -50,62 +50,42 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_input_username"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_view_input_password"
-            android:layout_marginTop="10dp"
-            android:autofillHints="password"
-            android:ems="15"
-            android:textSize="15sp"
-            android:hint="Enter your password"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_password"
-            tools:ignore="HardcodedText"/>
-    <TextView
-        android:id="@+id/text_view_reenterPassword"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/text_view_input_password"
         android:layout_marginTop="10dp"
-        android:text="Re-enter your password : "
-        android:textSize="18sp"
+        android:autofillHints="password"
+        android:ems="15"
+        android:textSize="15sp"
+        android:hint="Enter your password"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_input_password"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_view_input_reenterPassword"
-            android:layout_marginTop="10dp"
-            android:autofillHints="Re-enter your password"
-            android:ems="15"
-            android:textSize="15sp"
-            android:hint="Re-enter your password"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_reenterPassword"/>
+        app:layout_constraintTop_toBottomOf="@id/text_view_password"
+        android:inputType="textPassword"/>
 
     <TextView
         android:id="@+id/text_view_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Email : "
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_input_reenterPassword"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_view_input_email"
-            android:layout_marginTop="10dp"
-            android:autofillHints="emailAddress"
-            android:ems="15"
-            android:textSize="15sp"
-            android:hint="Enter your email"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_email"/>
+        app:layout_constraintTop_toBottomOf="@id/text_view_input_password"
+        tools:layout_editor_absoluteY="243dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_input_email"
+        android:layout_marginTop="10dp"
+        android:autofillHints="emailAddress"
+        android:ems="15"
+        android:textSize="15sp"
+        android:hint="Enter your email"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_email"/>
     <TextView
         android:id="@+id/text_view_ICPassport"
         android:layout_width="wrap_content"
@@ -115,19 +95,19 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_input_email"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:id="@+id/text_view_input_ICPassport"
-            android:layout_marginTop="10dp"
-            android:ems="15"
-            android:hint="Enter your IC number or Passport"
-            android:inputType="text"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_ICPassport"
-            tools:ignore="Hardcoded Text"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:id="@+id/text_view_input_ICPassport"
+        android:layout_marginTop="10dp"
+        android:ems="15"
+        android:hint="Enter your IC number or Passport"
+        android:inputType="text"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_ICPassport"
+        tools:ignore="Hardcoded Text"/>
     <ImageButton
         android:layout_width="60dp"
         android:layout_height="60dp"
