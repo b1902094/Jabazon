@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,9 +16,9 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.vicky.jabazon.Util.Vaccines;
 
 import java.util.Calendar;
 
@@ -33,7 +34,7 @@ public class RecordVaccine extends AppCompatActivity {
     ImageButton imgBtnCalendar;
     boolean isVaccIDValid, isVaccNameValid, isManufacturerValid, isBatchValid, isDateValid, isQtyAdminValid, isQtyAvailValid;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore fbfs = FirebaseFirestore.getInstance();
 
     FloatingActionButton addNewVaccine;
     Vaccines vaccines;
@@ -52,14 +53,15 @@ public class RecordVaccine extends AppCompatActivity {
             editTextQtyAvail = findViewById(R.id.edit_text_vaccineQtyAvail);
             editTextQtyAdmin = findViewById(R.id.edit_text_vaccineQtyAdmin);
 
-            addNewVaccine = findViewById(R.id.action_btn_add);
-            addNewVaccine.setOnClickListener(new View.OnClickListener() {
+            ImageButton imgBtnAdd = findViewById(R.id.action_btn_add);
+
+            imgBtnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(!editTextVacId.getText().toString().isEmpty()){
                         if(vaccines == null){
-
-                            DocumentReference newVacRef = db.collection("Vaccines").document();
+                            dataValidation();
+                            DocumentReference newVacRef = fbfs.collection("Vaccines").document();
                             vaccines = new Vaccines();
                             vaccines.setVaccineID(newVacRef.getId());
                             vaccines.setVaccineName(editTextVacName.getText().toString());
@@ -69,12 +71,14 @@ public class RecordVaccine extends AppCompatActivity {
                             vaccines.setQuantityAvailable(editTextQtyAvail.getText().toString());
                             vaccines.setQuantityAdministered(editTextQtyAdmin.getText().toString());
 
-                            db.collection("Vaccines")
+                            fbfs.collection("Vaccines")
                                     .document(newVacRef.getId())
                                     .set(vaccines)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(Void unused) { finish();}
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(RecordVaccine.this, "Successfully added!",Toast.LENGTH_SHORT).show();
+                                            finish();}
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -83,7 +87,7 @@ public class RecordVaccine extends AppCompatActivity {
                                         }
                                     });
                         } else{
-                            DocumentReference vacRef = db.collection("Vaccines")
+                            DocumentReference vacRef = fbfs.collection("Vaccines")
                                     .document(vaccines.getVaccineID());
                             vacRef.update("vaccineTitle", editTextVacName.getText().toString(),
                                     "manufacturer", editTextVacManufacturer.getText().toString(),
@@ -106,6 +110,7 @@ public class RecordVaccine extends AppCompatActivity {
                 }
             });
 
+
             imgBtnCalendar = findViewById(R.id.image_button_calendar_icon);
 
             imgBtnCalendar.setOnClickListener(v -> {
@@ -120,13 +125,8 @@ public class RecordVaccine extends AppCompatActivity {
                         todayYear, todayMonth, todayDayofMonth);
                 datePickerDialog.show();
             });
-            ImageButton imgBtnAdd = findViewById(R.id.action_btn_add);
-            imgBtnAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dataValidation();
-                }
-            });
+
+
 
 
         } catch (Exception ex) {
@@ -206,4 +206,3 @@ public class RecordVaccine extends AppCompatActivity {
         }
     }
 }
-
