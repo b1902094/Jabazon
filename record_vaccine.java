@@ -1,9 +1,9 @@
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.vicky.jabazon.Util.Vaccines;
+
 import java.util.Calendar;
 
-public class record_vaccine extends AppCompatActivity {
+public class RecordVaccine extends AppCompatActivity {
 
     EditText editTextVacId;
     EditText editTextVacName;
@@ -24,6 +32,11 @@ public class record_vaccine extends AppCompatActivity {
     EditText editTextQtyAdmin;
     ImageButton imgBtnCalendar;
     boolean isVaccIDValid, isVaccNameValid, isManufacturerValid, isBatchValid, isDateValid, isQtyAdminValid, isQtyAvailValid;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    FloatingActionButton addNewVaccine;
+    Vaccines vaccines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +50,61 @@ public class record_vaccine extends AppCompatActivity {
             editTextVacBatchNo = findViewById(R.id.edit_text_vaccineBatchNo);
             editTextExpDate = findViewById(R.id.edit_text_vaccineExpDate);
             editTextQtyAvail = findViewById(R.id.edit_text_vaccineQtyAvail);
-           editTextQtyAdmin = findViewById(R.id.edit_text_vaccineQtyAdmin);
+            editTextQtyAdmin = findViewById(R.id.edit_text_vaccineQtyAdmin);
+
+            addNewVaccine = findViewById(R.id.action_btn_add);
+            addNewVaccine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!editTextVacId.getText().toString().isEmpty()){
+                        if(vaccines == null){
+
+                            DocumentReference newVacRef = db.collection("Vaccines").document();
+                            vaccines = new Vaccines();
+                            vaccines.setVaccineID(newVacRef.getId());
+                            vaccines.setVaccineName(editTextVacName.getText().toString());
+                            vaccines.setManufacturer(editTextVacManufacturer.getText().toString());
+                            vaccines.setBatchNo(editTextVacBatchNo.getText().toString());
+                            vaccines.setExpiryDate(editTextExpDate.getText().toString());
+                            vaccines.setQuantityAvailable(editTextQtyAvail.getText().toString());
+                            vaccines.setQuantityAdministered(editTextQtyAdmin.getText().toString());
+
+                            db.collection("Vaccines")
+                                    .document(newVacRef.getId())
+                                    .set(vaccines)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) { finish();}
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(RecordVaccine.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        } else{
+                            DocumentReference vacRef = db.collection("Vaccines")
+                                    .document(vaccines.getVaccineID());
+                            vacRef.update("vaccineTitle", editTextVacName.getText().toString(),
+                                    "manufacturer", editTextVacManufacturer.getText().toString(),
+                                    "batchNo", editTextVacBatchNo.getText().toString(),
+                                    "expDate", editTextExpDate.getText().toString(),
+                                    "qtyAvail", editTextQtyAvail.getText().toString(),
+                                    "qtyAdmin", editTextQtyAdmin.getText().toString())
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) { finish();}
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(RecordVaccine.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                }
+            });
 
             imgBtnCalendar = findViewById(R.id.image_button_calendar_icon);
 
@@ -48,7 +115,7 @@ public class record_vaccine extends AppCompatActivity {
                 int todayMonth = calendar.get(Calendar.MONTH);
                 int todayDayofMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(record_vaccine.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RecordVaccine.this,
                         (view, year1, month1, dayOfMonth1) -> editTextExpDate.setText(dayOfMonth1 + "/" + month1 + "/" + year1),
                         todayYear, todayMonth, todayDayofMonth);
                 datePickerDialog.show();
@@ -63,7 +130,7 @@ public class record_vaccine extends AppCompatActivity {
 
 
         } catch (Exception ex) {
-            Toast.makeText(record_vaccine.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(RecordVaccine.this, ex.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -136,70 +203,6 @@ public class record_vaccine extends AppCompatActivity {
             alert.show();
         } else {
             Toast.makeText(getApplicationContext(),"Invalid/field empty",Toast.LENGTH_LONG).show();
-        }
-    }
-}
-
-    private void dataValidation() {
-        if (editTextVacId.getText().toString().isEmpty()) {
-            isVaccIDValid = false;
-        } else {
-            isVaccIDValid = true;
-        }
-
-        if (editTextVacName.getText().toString().isEmpty()) {
-            isVaccNameValid = false;
-        } else {
-            isVaccNameValid = true;
-        }
-
-        if (editTextVacManufacturer.getText().toString().isEmpty()) {
-            isManufacturerValid = false;
-        } else {
-            isManufacturerValid = true;
-        }
-
-        if (editTextVacBatchNo.getText().toString().isEmpty()) {
-            isBatchValid = false;
-        } else {
-            isBatchValid = true;
-        }
-
-        if (editTextExpDate.getText().toString().isEmpty()) {
-            isDateValid = false;
-        } else {
-            isDateValid = true;
-        }
-
-        if (editTextQtyAdmin.getText().toString().isEmpty()) {
-            isQtyAdminValid = false;
-        } else {
-            isQtyAdminValid = true;
-        }
-
-        if (editTextQtyAvail.getText().toString().isEmpty()) {
-            isQtyAvailValid = false;
-        } else {
-            isQtyAvailValid = true;
-        }
-
-        if (isVaccIDValid && isVaccNameValid && isManufacturerValid && isBatchValid && isDateValid && isQtyAdminValid && isQtyAvailValid) {
-            Context context = getApplicationContext();
-            AlertDialog.Builder ADB = new AlertDialog.Builder(context);
-            ADB.setMessage("Vaccine Recorded");
-            ADB.setPositiveButton("OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                            Intent intent = new Intent(getApplicationContext(), admin_activity.class);
-                        }
-                    });
-            AlertDialog alert = ADB.create();
-            alert.setTitle("Vaccine Recorded");
-            alert.show();
-        } else {
-            Toast.makeText(record_vaccine.this, "Data invalid/Field Empty", Toast.LENGTH_LONG);
         }
     }
 }
