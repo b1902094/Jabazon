@@ -123,12 +123,47 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="8dp"
-                    android:text="Manage Healthcare Centres"
+                    android:text="Manage healthcare centres"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_logout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_view_manage_healthcare_centres"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            app:cardBackgroundColor="@color/cultured"
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:contentDescription="Image for log out"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/logout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:text="Logout"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
 
     </RelativeLayout>
 </ScrollView>
