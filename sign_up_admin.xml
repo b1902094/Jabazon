@@ -106,6 +106,7 @@
             android:hint="ex:Jane@jabazonAdmin.com"
             android:ems="30"
             android:inputType="textPersonName"/>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
@@ -116,16 +117,35 @@
             android:fontFamily="sans-serif-light"
             android:textSize="18sp"
             android:text="Password"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativelayout_eyeicon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_APassword">
+
         <EditText
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/edit_text_Apassword"
-            app:layout_constraintTop_toBottomOf="@id/text_view_APassword"
             app:layout_constraintStart_toStartOf="parent"
-            android:ems="30"
-            android:hint="Jane12345*"
-            android:inputType="textPassword"/>
+            android:layout_gravity="center_horizontal"
+            android:ems="20"
+            android:inputType="textPassword"
+            android:hint="Jane12345*"/>
+
+            <ImageView
+                android:id="@+id/show_password_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="ShowHiddenPasswordOnClick"
+                android:src="@drawable/eyeicon" />
+        </RelativeLayout>
+
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
@@ -133,21 +153,12 @@
             android:id="@+id/text_view_Aemail"
             android:inputType="textEmailAddress"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_Apassword"
+            app:layout_constraintTop_toBottomOf="@id/relativelayout_eyeicon"
             android:ems="30"
             android:text="Email"
             android:textSize="18sp"
             android:fontFamily="sans-serif-light"/>
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_text_Aemail"
-            app:layout_constraintTop_toBottomOf="@id/text_view_Aemail"
-            app:layout_constraintStart_toStartOf="parent"
-            android:ems="30"
-            android:hint="Jane@gmail.com"
-            android:inputType="textEmailAddress"/>
+
         <TextView
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
@@ -183,8 +194,18 @@
             android:id="@+id/button_AsignUp"
             android:onClick="signUpButtonAdminOnClick"/>
 
-    
-    
+        <EditText
+            android:id="@+id/edit_text_Aemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:ems="30"
+            android:hint="Jane@gmail.com"
+            android:inputType="textEmailAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_Aemail" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
