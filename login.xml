@@ -7,7 +7,7 @@
     android:layout_margin="8dp"
     android:background="@color/cultured"
     android:id="@+id/constraint_layout_login"
-    tools:context=".SignUp">
+    tools:context=".SignUpUser">
 
     <TextView
         android:id="@+id/text_view_login_title"
@@ -40,7 +40,7 @@
         android:hint="Enter your username"
         android:inputType="textPersonName"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_username" />
 
@@ -54,27 +54,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editText_input_username" />
 
-    <EditText
-        android:id="@+id/editText_input_password"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:autofillHints="password"
-        android:ems="15"
-        android:hint="Enter your password"
-        android:textColor="@color/black"
-        android:textSize="15sp"
+        android:id="@+id/relativelayout_eyeicon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_password"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_password">
+
+        <EditText
+            android:id="@+id/editText_input_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ems="20"
+            android:textSize="18sp"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/show_password_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="ShowHiddenPasswordOnClick"
+            android:src="@drawable/eyeicon" />
+    </RelativeLayout>
 
     <CheckBox
         android:id="@+id/checkbox_rememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="RememberMeClick"
+        android:textSize="18sp"
         android:text="@string/RememberMeClick"
-        app:layout_constraintTop_toBottomOf="@+id/editText_input_password"
+        app:layout_constraintTop_toBottomOf="@+id/relativelayout_eyeicon"
         tools:ignore="MissingConstraints,OnClick" />
 
     <Button
