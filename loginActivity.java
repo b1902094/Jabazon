@@ -1,4 +1,8 @@
 
+
+import static android.service.controls.ControlsProviderService.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -8,6 +12,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -15,8 +22,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
     EditText editTextUsername;
@@ -25,13 +39,17 @@ public class LoginActivity extends AppCompatActivity {
     Button button_login;
     SharedPreferences sharedPreferences;
 
-    boolean hasUsername, hasPassword,isUserFound;
+    public static String User_ID;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore fbfs = FirebaseFirestore.getInstance();
+
+
+    boolean hasUsername, hasPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        getSupportActionBar().setTitle("Jabazon");
 
         editTextUsername = findViewById(R.id.editText_input_username);
         editTextPassword = findViewById(R.id.editText_input_password);
@@ -78,28 +96,52 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 hideKeyboard(LoginActivity.this, view);
-                DatabaseHandler Jab_DB = new DatabaseHandler((LoginActivity.this));
-                User user = Jab_DB.getUser(editTextUsername.getText().toString(), editTextPassword.getText().toString());
-                if(user != null){
-                    Util.USER = user;
-                    //Toast.makeText(LoginActivity.this,String.valueOf(user.getUserName()),Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(),UserActivity.class));
-                }else if(editTextUsername.getText().toString().equals("jabazonAdmin")&& editTextPassword.getText().toString().equals("Jabazon123*")){
-                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
-                }
-                else {
-                    Snackbar.make(findViewById(R.id.constraint_layout_login),"Username or password is wrong !", BaseTransientBottomBar.LENGTH_INDEFINITE).setAction("Close", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            editTextPassword.setText("");
-                            editTextUsername.setText("");
-                            editTextUsername.requestFocus();
-                        }
-                    }).show();
-                }
+                mAuth.signInWithEmailAndPassword(editTextUsername.getText().toString(), editTextPassword.getText().toString())
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                checkUserAccessLevel(authResult.getUser().getUid());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Snackbar.make(findViewById(R.id.constraint_layout_login),"Username or password incorrect!",
+                                BaseTransientBottomBar.LENGTH_INDEFINITE)
+                                .setAction("Close", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        editTextUsername.setText("");
+                                        editTextPassword.setText("");
+                                        editTextUsername.requestFocus();
+                                    }
+                                }).show();
+                    }
+                });
             }
         });
         getLoginDetails();
+    }
+
+    private void checkUserAccessLevel(String uid) {
+        DocumentReference df = fbfs.collection("Users").document(uid);
+        //extract data from the document
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG", "onSuccess: "+documentSnapshot.getData());
+                //identify the user access level
+                if(documentSnapshot.getString("isUser")!=null){
+                    //user is patient
+                    startActivity(new Intent(getApplicationContext(),UserActivity.class));
+                    finish();
+                }
+                if(documentSnapshot.getString("isAdmin")!=null){
+                    //user is admin
+                    startActivity(new Intent(getApplicationContext(),AdminActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
     public void getLoginDetails(){
@@ -147,7 +189,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void updateBtnLogin(){
-
         button_login.setEnabled(hasUsername&&hasPassword);
     }
 
@@ -155,5 +196,14 @@ public class LoginActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+    public void ShowHiddenPasswordOnClick(View view) {
+        if(view.getId()==R.id.show_password_button){
+            if(editTextPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                editTextPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else{
+                editTextPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
 
+    }
 }
