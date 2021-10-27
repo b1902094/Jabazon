@@ -187,7 +187,7 @@ public class RecordVaccine extends AppCompatActivity {
 
         if (isVaccIDValid && isVaccNameValid && isManufacturerValid && isBatchValid && isDateValid && isQtyAdminValid && isQtyAvailValid) {
             AlertDialog.Builder ADB = new AlertDialog.Builder(this);
-            ADB.setMessage("Vaccine Recorded");
+            ADB.setMessage("New Vaccine has been recorded");
             ADB.setCancelable(true);
             ADB.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
