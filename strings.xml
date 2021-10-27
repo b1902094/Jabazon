@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Jabazon </string>
+    <string name="RememberMeClick">Remember me </string>
+
+    <string-array name="health_problems">
+        <item>Select One </item>
+        <item> Cancer </item>
+        <item> Cardiovascular disease </item>
+        <item> Pulmonary disease </item>
+        <item> Obesity </item>
+        <item> Diabetes(type 1 or 2) </item>
+        <item> Hypertension </item>
+        <item> Liver disease </item>
+        <item> Kidney disease </item>
+        <item> None </item>
+    </string-array>
+
+    <string-array name="vaccines">
+        <item>Select One </item>
+        <item> Sinovac </item>
+        <item> Astra Zinecca(AZ) </item>
+        <item> Pfizer </item>
+        <item> Moderna </item>
+        <item> Johnson N Johnson </item>
+    </string-array>
+
+    <string-array name="healthcareCentres">
+        <item>Select One </item>
+        <item> KPJ healthcare Centre </item>
+        <item> Columbia Hospital </item>
+        <item> GlenEagles Hospital </item>
+        <item> Add new healthcare centre </item>
+    </string-array>
+</resources>
