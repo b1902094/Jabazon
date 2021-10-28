@@ -1,7 +1,7 @@
 
 import java.io.Serializable;
 
-public class Healthcare implements Serializable {
+public class HealthcareCentres implements Serializable {
 
     private String centreName;
     private String centreAddress;
