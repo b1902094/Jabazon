@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ManageVaccinesHome"
     android:padding="16dp"
-    android:id="@+id/layout_vaccines">
+    android:id="@+id/layout_hcc">
 
     <TextView
         android:id="@+id/text_view_manage_hc_title"
@@ -22,16 +22,26 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="375dp"
-        android:layout_height="51dp"
-        android:layout_alignParentTop="true"
-        android:iconifiedByDefault="false"
-        android:queryHint="Enter Batch Number"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="80dp" />
+    <ListView
+        android:id="@+id/list_view_hc_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_btn_add_healthcare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/morningBlue"
+        android:src="@drawable/btn_add2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/list_view_hc_list"
+        app:layout_constraintVertical_bias="0.975" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/list_view_hc_list"
