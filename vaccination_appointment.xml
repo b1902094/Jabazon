@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,188 +22,121 @@
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_vaccinationAppointment"
-            android:text="Name"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
-            android:id="@+id/text_view_name"/>
 
-        <EditText
-            android:autofillHints="name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="15"
-            android:hint="Enter your name"
-            android:inputType="textPersonName"
-            android:id="@+id/edit_text_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_name"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_name"
-            android:text="Email"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
-            android:id="@+id/text_view_email"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="15"
-            android:autofillHints="emailAddress"
-            android:hint="Enter your email"
-            android:inputType="textEmailAddress"
-            android:id="@+id/edit_text_email"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_email"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_email"
-            android:text="Contact Number"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
-            android:id="@+id/text_view_contactNumber"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="15"
-            android:autofillHints="phone"
-            android:hint="Enter your contact number"
-            android:inputType="phone"
-            android:id="@+id/edit_text_contactNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_contactNumber"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_contactNumber"
-            android:text="IC/Passport"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
-            android:id="@+id/text_view_ICPassport"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="15"
-            android:hint="Enter your IC/Passport"
-            android:inputType="phone"
-            android:id="@+id/edit_text_ICPassport"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_ICPassport"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_ICPassport"
-            android:text="Health problems"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="18sp"
-            android:id="@+id/text_view_healthProblems" />
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linear_layout_health_problems"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_healthProblems"
-            android:weightSum="2">
-            <Spinner
-                android:id="@+id/spinner_healthproblem1"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1" />
-            <Spinner
-                android:id="@+id/spinner_healthproblem2"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-        <EditText
-            android:autofillHints="name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="20"
-            android:hint="other health problems(optional)"
-            android:inputType="text"
-            android:id="@+id/edit_text_other_health_problems"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_health_problems"/>
-        <LinearLayout
-            android:id="@+id/linear_layout_appointment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_text_other_health_problems"
-            android:weightSum="2">
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/image_button_calendar_icon"
-                android:src="@drawable/calendar_icon"
-                android:scaleType="centerCrop"
-                android:background="@color/white"
-                android:contentDescription="This is a calendar button" />
-            <EditText
-                android:id="@+id/edit_text_dateofAppointment"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:autofillHints="Date of birth"
-                android:ems="15"
-                android:hint="Enter date of appointment"
-                android:inputType="date"
-                android:textColor="@color/black"/>
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_layout_vaccines"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="12dp"
+            android:weightSum="2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_appointment"
-            android:weightSum="2">
+            app:layout_constraintTop_toBottomOf="@id/text_view_vaccinationAppointment">
+
             <TextView
-                app:layout_constraintTop_toBottomOf="@id/linear_layout_vaccines"
                 android:id="@+id/text_view_select_vaccine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Select vaccine"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/linear_layout_vaccines" />
 
             <Spinner
                 android:id="@+id/spinner_vaccinesChosen"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_layout_healthcareCentre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_vaccines">
+
+            <TextView
+                android:id="@+id/text_view_healthcareCentre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select healthcare centre"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/spinner_healthcareCentres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout_batchNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_healthcareCentre">
+            <TextView
+                android:id="@+id/text_view_batchNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select batch No"
+                android:textSize="18sp"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/spinner_batchNo"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_appointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_batchNo">
+
+            <ImageButton
+                android:id="@+id/image_button_calendar_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:contentDescription="This is a calendar button"
+                android:scaleType="centerCrop"
+                android:src="@drawable/calendar_icon" />
+
+            <EditText
+                android:id="@+id/edit_text_dateofAppointment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints="Date of birth"
+                android:ems="15"
+                android:hint="Enter date of appointment"
+                android:inputType="date"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
+
+
         <Button
+            android:id="@+id/button_submit"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_vaccines"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Submit"
             android:fontFamily="sans-serif-medium"
+            android:text="Submit"
             android:textSize="16sp"
-            android:id="@+id/button_submit"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_appointment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
