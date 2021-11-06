@@ -1,4 +1,6 @@
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,55 +19,115 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class vaccinationAppointment extends AppCompatActivity {
-    Spinner spinnerHealthProblems1;
-    Spinner spinnerHealthProblems2;
+
     Spinner vaccinesChosen;
     ImageButton imageButtonCalendar ;
-    TextView healthProblemsTextView;
     TextView vaccinesChosenTextView;
-    EditText edittextName;
-    EditText phoneNo;
-    EditText ICPassport;
     EditText appointmentDateDOB;
-    EditText editTextEmail;
-    EditText otherHealthProblems;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
-    boolean isUsernameValid,isEmailValid,isPhoneNoValid,isICPassportValid, isSpinner1Valid
-            ,isSpinner2Valid, isVaccineChosenValid;
+    TextView healthcareTextView;
+    Spinner healthcareChosen;
+    TextView batchNoTextView;
+    Spinner batchNoChosen;
+    boolean isVaccineChosenValid, isBatchNoValid, isHealthcareValid,isDateValid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaccination_appointment);
 
+
         try {
             appointmentDateDOB = findViewById(R.id.edit_text_dateofAppointment);
-            edittextName = findViewById(R.id.edit_text_name);
-            editTextEmail = findViewById(R.id.edit_text_email);
-            phoneNo = findViewById(R.id.edit_text_contactNumber);
-            ICPassport = findViewById(R.id.edit_text_ICPassport);
-            otherHealthProblems=findViewById(R.id.edit_text_other_health_problems);
-            healthProblemsTextView = findViewById(R.id.text_view_healthProblems);
             vaccinesChosenTextView = findViewById(R.id.text_view_select_vaccine);
+            healthcareTextView = findViewById(R.id.text_view_healthcareCentre);
+            batchNoTextView = findViewById(R.id.text_view_batchNo);
 
-            spinnerHealthProblems1 = findViewById(R.id.spinner_healthproblem1);
-            ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.health_problems, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerHealthProblems1.setAdapter(adapter);
-
-            spinnerHealthProblems2 = findViewById(R.id.spinner_healthproblem2);
-            spinnerHealthProblems2.setAdapter(adapter);
-
+            FirebaseFirestore db =  FirebaseFirestore.getInstance();
+            CollectionReference cfVac = db.collection("Vaccines");
             vaccinesChosen = findViewById(R.id.spinner_vaccinesChosen);
-            ArrayAdapter adapter1 = ArrayAdapter.createFromResource(this, R.array.vaccines, android.R.layout.simple_spinner_item);
-            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            vaccinesChosen.setAdapter(adapter1);
+            List<String> vaccines = new ArrayList<>();
+            ArrayAdapter<String>vaccinesArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,vaccines);
+            vaccinesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            vaccinesChosen.setAdapter(vaccinesArrayAdapter);
+            cfVac.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot document: task.getResult()){
+                            String VacName = document.getString("vaccineName");
+                            vaccines.add(VacName);
+                        }
+                        vaccinesArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+
+            CollectionReference cfHealthcare = db.collection("Healthcare");
+            Spinner HealthcareChosen = findViewById(R.id.spinner_healthcareCentres);
+            List<String> healthcare = new ArrayList<>();
+            ArrayAdapter<String>healthcareArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,healthcare);
+            healthcareArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            HealthcareChosen.setAdapter(healthcareArrayAdapter);
+            cfHealthcare.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot document: task.getResult()){
+                            String HCName = document.getString("centreName");
+                            healthcare.add(HCName);
+                        }
+                        healthcareArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+
+            CollectionReference cfbatchNo = db.collection("Vaccines");
+            Spinner batchNoChosen = findViewById(R.id.spinner_batchNo);
+            List<String> batchNo = new ArrayList<>();
+            ArrayAdapter<String>batchNoArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,batchNo);
+            batchNoArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            batchNoChosen.setAdapter(batchNoArrayAdapter);
+            cfbatchNo.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        for(QueryDocumentSnapshot document: task.getResult()){
+                            String batchNumber = document.getString("batchNo");
+                            batchNo.add(batchNumber);
+                        }
+                        batchNoArrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
 
             imageButtonCalendar = findViewById(R.id.image_button_calendar_icon);
             imageButtonCalendar.setOnClickListener(v -> {
@@ -74,8 +137,9 @@ public class vaccinationAppointment extends AppCompatActivity {
                 int todayDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(vaccinationAppointment.this,
-                        (view, year1, month1, dayOfMonth1) -> appointmentDateDOB.setText(dayOfMonth1 + "/" + month1 + "/" + year1),
+                        (view, year1, month1, dayOfMonth1) -> appointmentDateDOB.setText(dayOfMonth1 + "/" + (month1+1) + "/" + year1),
                         todayYear, todayMonth, todayDayOfMonth);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
 
             });
@@ -90,52 +154,33 @@ public class vaccinationAppointment extends AppCompatActivity {
         }
     }
 
+
     private void dataValidation(){
-        if(edittextName.getText().toString().isEmpty()){
-            edittextName.setError("Please fill in the field");
-            isUsernameValid = false;
-        }else{
-            isUsernameValid = true;
-        }
-        if(editTextEmail.getText().toString().isEmpty()){
-            editTextEmail.setError("Please fill in the field");
-            isEmailValid = false;
-        }else if(!(editTextEmail.getText().toString()).matches(emailPattern)){
-            editTextEmail.setError("Please enter a valid email.");
-            isEmailValid = false;
-        }else{
-            isEmailValid = true;
-        }
-        if(phoneNo.getText().toString().isEmpty()){
-            phoneNo.setError("Please fill in the field");
-            isPhoneNoValid = false;
-        }else{
-            isPhoneNoValid = true;
-        }
-        if(ICPassport.getText().toString().isEmpty()){
-            ICPassport.setError("Please fill in the field");
-            isICPassportValid = false;
-        }else{
-            isICPassportValid = true;
-        }
-        if(spinnerHealthProblems2.getSelectedItem().equals("Select One")){
-            isSpinner2Valid = false;
-        }
-        else {
-            isSpinner2Valid = true;
-        }
-        if(spinnerHealthProblems1.getSelectedItem().equals("Select One")){
-            isSpinner1Valid = false;
-        }else{
-            isSpinner1Valid = true;
-        }
-        if(vaccinesChosen.getSelectedItem().equals("Select One")){
+
+        if(vaccinesChosen.getSelectedItem() == null){
             isVaccineChosenValid = false;
-        }else{
+        }
+        else{
             isVaccineChosenValid = true;
         }
 
-        if(isUsernameValid && isEmailValid && isPhoneNoValid && isICPassportValid && isSpinner1Valid && isSpinner2Valid && isVaccineChosenValid) {
+        if(batchNoChosen.getSelectedItem() == null){
+            isBatchNoValid = false;
+        }else{
+            isBatchNoValid = true;
+        }
+        if(healthcareChosen.getSelectedItem() == null){
+            isHealthcareValid = false;
+        }else{
+            isHealthcareValid = true;
+        }
+        if(appointmentDateDOB.getText().toString().isEmpty()){
+            isDateValid = false;
+        }else{
+            isDateValid = true;
+        }
+
+        if( isVaccineChosenValid && isBatchNoValid && isHealthcareValid && isDateValid) {
             AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(this);
             ADBuilder1.setMessage("Appointment request has been made. Please wait for confirmation.");
             ADBuilder1.setCancelable(true);
@@ -150,33 +195,17 @@ public class vaccinationAppointment extends AppCompatActivity {
             AlertDialog alert11 = ADBuilder1.create();
             alert11.setTitle("Request successful");
             alert11.show();
-        }
-        else if((!isSpinner2Valid) && (!isSpinner1Valid)){
-            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Select 'none' if you have no health problems ",
-                    BaseTransientBottomBar.LENGTH_INDEFINITE)
-                    .setAction("Close", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            healthProblemsTextView.setError("Please select at the below spinner");
-                        }
-                    }).show();
-        }else if(!isVaccineChosenValid){
-            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please select the vaccine you desired",
-                    BaseTransientBottomBar.LENGTH_INDEFINITE)
-                    .setAction("Close", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                           vaccinesChosenTextView.setError("Please select the vaccine at the spinner on the right");
-                        }
-                    }).show();
+
         }
         else{
             Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction("Close", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            edittextName.requestFocus();
+
                         }
                     }).show();
         }
+
     }
+}
