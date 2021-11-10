@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="24dp"
+        tools:context=".SelectedVid">
+
+
+        <TextView
+            android:id="@+id/tv_new_batch_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Record New Vaccine Batch"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/morningBlue"/>
+
+        <TextView
+            android:id="@+id/tv_selected_vName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_batch_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Vaccine Name"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_selected_manufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_vName"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Manufacturer"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <EditText
+            android:id="@+id/et_new_batchNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_manufacturer"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Insert New Batch No"
+            android:layout_marginTop="24dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_expDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_new_batchNo">
+
+            <ImageButton
+                android:id="@+id/img_btn_calender"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:contentDescription="This is a calendar button"
+                android:scaleType="centerCrop"
+                android:src="@drawable/calendar_icon" />
+
+            <EditText
+                android:id="@+id/et_new_expDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/et_new_batchNo"
+                app:layout_constraintStart_toStartOf="parent"
+                android:padding="20dp"
+                android:hint="Insert Expiry Date"
+                android:layout_marginTop="24dp"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_new_qtyAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ll_expDate"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Insert Quantity Administered"
+            android:layout_marginTop="24dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/et_new_qtyAvail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/et_new_qtyAdmin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Insert Quantity Available"
+            android:layout_marginTop="24dp"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Submit"
+            android:text="Submit"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/et_new_qtyAvail"
+            app:layout_constraintEnd_toEndOf="@id/et_new_qtyAvail"
+            android:layout_marginTop="12dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

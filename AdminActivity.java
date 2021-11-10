@@ -1,4 +1,3 @@
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -12,10 +11,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity {
-    CardView mngAppsCardView; 
-    CardView mngVaccinesCardView; 
-    CardView mngHealthcareCentresCardView; 
-    CardView cardViewLogout; 
+    CardView mngAppsCardView;
+    CardView mngVaccinesCardView;
+    CardView mngHealthcareCentresCardView;
+    CardView cardViewLogout;
     String[] vaccines;
 
     @Override
@@ -58,13 +57,28 @@ public class AdminActivity extends AppCompatActivity {
                 finish();
             }
         });
-        mngHealthcareCentresCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ManageHealthcareHome.class));
-            }
+        mngHealthcareCentresCardView.setOnClickListener(view -> {
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setMessage("Select a Vaccine Batch to Proceed");
+            adb.setCancelable(true);
+            adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(getApplicationContext(), ManageBatchItems.class);
+                    startActivity(intent);
+                }
+            });
+            AlertDialog ad = adb.create();
+            ad.setTitle("Select Batch");
+            ad.show();
         });
+
+        mngAppsCardView.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminActivity.this, ManageApptsHome.class);
+            startActivity(intent);
+        });
+        }
 
 
     }
-}
