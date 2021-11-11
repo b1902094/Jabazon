@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,6 +42,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -53,9 +56,13 @@ public class vaccinationAppointment extends AppCompatActivity {
     TextView vaccinesChosenTextView;
     EditText appointmentDateDOB;
     TextView healthcareTextView;
-    Spinner healthcareChosen;
+    TextView statusTextView;
+    String healthcareChosen;
     TextView batchNoTextView;
     Spinner batchNoChosen;
+    UserVaccineAppointment vaxAppt;
+    Object batchNumChosen, vaccineChosen;
+    FirebaseFirestore db =  FirebaseFirestore.getInstance();
     boolean isVaccineChosenValid, isBatchNoValid, isHealthcareValid,isDateValid;
 
 
@@ -70,8 +77,9 @@ public class vaccinationAppointment extends AppCompatActivity {
             vaccinesChosenTextView = findViewById(R.id.text_view_select_vaccine);
             healthcareTextView = findViewById(R.id.text_view_healthcareCentre);
             batchNoTextView = findViewById(R.id.text_view_batchNo);
+            statusTextView = findViewById(R.id.tv_statusChangeable);
 
-            FirebaseFirestore db =  FirebaseFirestore.getInstance();
+
             CollectionReference cfVac = db.collection("Vaccines");
             vaccinesChosen = findViewById(R.id.spinner_vaccinesChosen);
             List<String> vaccines = new ArrayList<>();
@@ -88,6 +96,17 @@ public class vaccinationAppointment extends AppCompatActivity {
                         }
                         vaccinesArrayAdapter.notifyDataSetChanged();
                     }
+                }
+            });
+            vaccinesChosen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    vaccineChosen = String.valueOf(adapterView.getItemAtPosition(i));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
                 }
             });
 
@@ -109,6 +128,18 @@ public class vaccinationAppointment extends AppCompatActivity {
                     }
                 }
             });
+            HealthcareChosen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    healthcareChosen = String.valueOf(adapterView.getItemAtPosition(i));
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             CollectionReference cfbatchNo = db.collection("Vaccines");
             Spinner batchNoChosen = findViewById(R.id.spinner_batchNo);
@@ -126,6 +157,17 @@ public class vaccinationAppointment extends AppCompatActivity {
                         }
                         batchNoArrayAdapter.notifyDataSetChanged();
                     }
+                }
+            });
+            batchNoChosen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    batchNumChosen = String.valueOf(adapterView.getItemAtPosition(i));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
                 }
             });
 
@@ -146,6 +188,48 @@ public class vaccinationAppointment extends AppCompatActivity {
             Button submitButton = findViewById(R.id.button_submit);
             submitButton.setOnClickListener(view -> {
                 dataValidation();
+                if(vaxAppt == null){
+                    DocumentReference newVaxRef = db.collection("Vaccination Appointment").document();
+                    vaxAppt = new UserVaccineAppointment();
+                    vaxAppt.setBatchNo(String.valueOf(batchNumChosen));
+                    vaxAppt.setSelectedVaccine(String.valueOf(vaccineChosen));
+                    vaxAppt.setSelectedHealthcare(healthcareChosen);
+                    vaxAppt.setAppointmentDate(appointmentDateDOB.getText().toString());
+                    vaxAppt.setVaccinationAppointmentID(newVaxRef.getId());
+                    vaxAppt.setStatus(statusTextView.getText().toString());
+                    vaxAppt.setUserID(LoginActivity.User_ID);
+
+                    db.collection("Vaccination Appointment")
+                            .document(newVaxRef.getId())
+                            .set(vaxAppt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(vaccinationAppointment.this,"Successfully added!",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(vaccinationAppointment.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else{
+                    DocumentReference vaxApptRef = db.collection("Vaccination Appointment").document(vaxAppt.getVaccinationAppointmentID());
+                    vaxApptRef.update("batchNo",batchNumChosen,"vaccine"
+                            ,vaccineChosen,"healthcare centre", healthcareChosen
+                            , "appointment Date", appointmentDateDOB.getText().toString(),"status", statusTextView.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(vaccinationAppointment.this, e.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             });
 
 
@@ -157,19 +241,19 @@ public class vaccinationAppointment extends AppCompatActivity {
 
     private void dataValidation(){
 
-        if(vaccinesChosen.getSelectedItem() == null){
+        if(vaccineChosen == null){
             isVaccineChosenValid = false;
         }
         else{
             isVaccineChosenValid = true;
         }
 
-        if(batchNoChosen.getSelectedItem() == null){
+        if(batchNumChosen == null){
             isBatchNoValid = false;
         }else{
             isBatchNoValid = true;
         }
-        if(healthcareChosen.getSelectedItem() == null){
+        if(healthcareChosen == null){
             isHealthcareValid = false;
         }else{
             isHealthcareValid = true;
@@ -195,14 +279,12 @@ public class vaccinationAppointment extends AppCompatActivity {
             AlertDialog alert11 = ADBuilder1.create();
             alert11.setTitle("Request successful");
             alert11.show();
-
         }
         else{
             Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction("Close", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
                         }
                     }).show();
         }
