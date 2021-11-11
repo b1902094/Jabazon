@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class UserActivity extends AppCompatActivity {
     CardView vaccinationAppointmentCard;
     CardView logoutCard;
+    CardView checkStatusCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,7 @@ public class UserActivity extends AppCompatActivity {
 
         vaccinationAppointmentCard = findViewById(R.id.cardView_vaccination_appointmentUser);
         logoutCard = findViewById(R.id.cardView_logout);
+        checkStatusCard = findViewById(R.id.cardView_check_vaccination_status);
 
         vaccinationAppointmentCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,7 +29,14 @@ public class UserActivity extends AppCompatActivity {
                 startActivity(vaccinationAppointmentIntent);
             }
         });
-
+        checkStatusCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent checkStatusIntent = new Intent(UserActivity.this, checkVaccinationStatus.class);
+                startActivity(checkStatusIntent);
+            }
+        });
+        
         logoutCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
