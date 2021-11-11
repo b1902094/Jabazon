@@ -94,6 +94,31 @@
                 android:layout_weight="1"
                 android:id="@+id/spinner_batchNo"/>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_layout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_batchNo">
+            <TextView
+                android:id="@+id/tv_statustitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Status"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/tv_statusChangeable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pending"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/linear_layout_appointment"
@@ -102,7 +127,7 @@
             android:padding="12dp"
             android:weightSum="2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_batchNo">
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_status">
 
             <ImageButton
                 android:id="@+id/image_button_calendar_icon"
