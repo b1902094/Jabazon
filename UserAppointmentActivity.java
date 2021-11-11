@@ -5,17 +5,15 @@ import java.util.Date;
 
 public class UserVaccineAppointment {
 
-    private final String appointmentDate;
-    private String username;
-    private String email;
-    private String phoneNo;
-    private String ICPassport;
-    private String otherHealthProblems;
-
+    private String appointmentDate;
+    private String batchNo;
+    private String selectedHealthcare;
+    private String selectedVaccine;
+    private String vaccinationAppointmentID;
+    private String status;
+    private String userID;
 
     public UserVaccineAppointment(){
-        DateFormat sdf = SimpleDateFormat.getDateInstance();
-        this.appointmentDate =sdf.format(new Date());
 
     }
 
@@ -23,43 +21,56 @@ public class UserVaccineAppointment {
         return appointmentDate;
     }
 
-    public String getUsername() {
-        return username;
+    public void setAppointmentDate(String appointmentDate){
+        DateFormat sdf = SimpleDateFormat.getDateInstance();
+        this.appointmentDate =sdf.format(new Date());
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getBatchNo() {
+        return batchNo;
     }
 
-    public String getEmail() {
-        return email;
+    public void setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getSelectedHealthcare() {
+        return selectedHealthcare;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public void setSelectedHealthcare(String selectedHealthcare) {
+        this.selectedHealthcare = selectedHealthcare;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public String getSelectedVaccine() {
+        return selectedVaccine;
     }
 
-    public String getICPassport() {
-        return ICPassport;
+    public void setSelectedVaccine(String selectedVaccine) {
+        this.selectedVaccine = selectedVaccine;
     }
 
-    public void setICPassport(String ICPassport) {
-        this.ICPassport = ICPassport;
+    public String getVaccinationAppointmentID() {
+        return vaccinationAppointmentID;
     }
 
-    public String getOtherHealthProblems() {
-        return otherHealthProblems;
+    public void setVaccinationAppointmentID(String vaccinationAppointmentID) {
+        this.vaccinationAppointmentID = vaccinationAppointmentID;
     }
 
-    public void setOtherHealthProblems(String otherHealthProblems) {
-        this.otherHealthProblems = otherHealthProblems;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
