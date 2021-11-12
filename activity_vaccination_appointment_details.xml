@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".vaccinationAppointmentDetails">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="24dp">
+
+        <TextView
+            android:id="@+id/tv_appointment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Vaccination Appointments"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/morningBlue"/>
+
+        <TextView
+            android:id="@+id/tv_selected_patient_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_appointment_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Patient Name"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_selected_patient_ic_pp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_patient_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Patient IC / Passport"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_selected_patient_batch_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_patient_ic_pp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Patient Batch Num"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_selected_patient_vaccine_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_patient_batch_num"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Patient Vaccine Name"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_selected_patient_vaccine_mf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_patient_vaccine_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Patient Vaccine mf"
+            android:layout_marginTop="30dp"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/btn_confirm_appt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_patient_vaccine_mf"
+            android:layout_marginTop="30dp"
+            android:text="Confirm"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/btn_reject_appt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_confirm_appt"
+            android:layout_marginTop="10dp"
+            android:text="Reject"
+            android:textSize="22sp"/>
+
+        <EditText
+            android:id="@+id/et_remarks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_reject_appt"
+            android:layout_marginTop="30dp"
+            android:hint="Enter Optional Remarks"
+            android:textSize="10sp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
