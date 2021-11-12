@@ -45,11 +45,11 @@ public class SignUpUser extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[com]+";
     String usernamePattern = "[a-zA-z0-9._-]+@[jabazonPatient]+\\.+[com]+";
     boolean isUsernameValid, isPasswordValid, isEmailValid, isICPassportValid;
-    User user;
+    FirebaseUser user;
     public static String User_ID;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore fbfs = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,30 +123,29 @@ public class SignUpUser extends AppCompatActivity {
         hideKeyboard(SignUpUser.this, view);
         checkDataValidation();
             mAuth.createUserWithEmailAndPassword(edittextUsername.getText().toString(), edittextPassword.getText().toString())
-                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onSuccess(AuthResult authResult) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
-                                DocumentReference df = fbfs.collection("Users").document(user.getUid());
-                                Map<String, Object> userInfo = new HashMap<>();
-                                userInfo.put("Username", edittextUsername.getText().toString());
-                                userInfo.put("Password", edittextPassword.getText().toString());
-                                userInfo.put("Email", emailEditText.getText().toString());
-                                userInfo.put("IC/Passport", ICPassportEditText.getText().toString());
-                                //to specify user is patient
-                                userInfo.put("isUser", "1");
-                                df.set(userInfo);
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                finish();
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                if (user != null) {
+                                    DocumentReference df = db.collection("Users").document(user.getUid());
+                                    Map<String, Object> userInfo = new HashMap<>();
+                                    userInfo.put("Username", edittextUsername.getText().toString());
+                                    userInfo.put("Password", edittextPassword.getText().toString());
+                                    userInfo.put("Email", emailEditText.getText().toString());
+                                    userInfo.put("IC/Passport", ICPassportEditText.getText().toString());
+                                    //to specify user is patient
+                                    userInfo.put("isUser", "1");
+                                    df.set(userInfo);
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    finish();
+                                }
+                            } else {
+                                Toast.makeText(SignUpUser.this, "Failed to create an account", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SignUpUser.this, "Failed to create an account", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    });
     }
     private void hideKeyboard(Context context, View view){
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
