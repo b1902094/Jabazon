@@ -9,7 +9,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jabazon">
         <activity
-            android:name=".ManageApptsHome"
+            android:name=".VaccinesHome"
+            android:exported="true" />
+        <activity
+            android:name=".vaccinationAppointmentDetails"
+            android:exported="true" />
+        <activity
+            android:name=".vaccination_appointment_list"
+            android:exported="true"
+            android:label="Vaccination Appointment" />
+        <activity
+            android:name=".checkVaccinationStatus"
             android:exported="true" />
         <activity
             android:name=".RecordHealthcareCentre"
@@ -18,7 +28,7 @@
             android:name=".ManageHealthcareHome"
             android:exported="true" />
         <activity
-            android:name=".ManageVaccinesHome"
+            android:name=".ManageVaccines"
             android:exported="true" />
         <activity
             android:name=".SignUpAdmin"
@@ -27,7 +37,7 @@
             android:name=".vaccinationAppointment"
             android:exported="true" />
         <activity
-            android:name=".RecordVaccine"
+            android:name=".SelectedVid"
             android:exported="true" />
         <activity
             android:name=".UserActivity"
@@ -40,7 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".SignUpUser"
-            android:label="Sign Up" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -52,6 +62,4 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/> 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> 
 </manifest>
