@@ -33,20 +33,20 @@ public class AdminActivity extends AppCompatActivity {
 
 
         mngVaccinesCardView.setOnClickListener(v ->{
-            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            Intent intent = new Intent(AdminActivity.this, VaccinesHome.class);
+            startActivity(intent);
+
+            /*AlertDialog.Builder adb = new AlertDialog.Builder(this);
             adb.setMessage("Select a Vaccine ID to Proceed");
             adb.setCancelable(true);
-            adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.cancel();
-                    Intent intent = new Intent(getApplicationContext(), ManageVaccines.class);
-                    startActivity(intent);
-                }
+            adb.setPositiveButton("OK", (dialogInterface, i) -> {
+                dialogInterface.cancel();
+                Intent intent = new Intent(getApplicationContext(), VaccinesHome.class);
+                startActivity(intent);
             });
             AlertDialog ad = adb.create();
             ad.setTitle("Select VID");
-            ad.show();
+            ad.show();*/
         });
 
         cardViewLogout.setOnClickListener(new View.OnClickListener() {
