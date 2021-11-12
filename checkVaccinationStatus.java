@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class checkVaccinationStatus extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    RelativeLayout relativeLayout ;
-    EditText batchNo,vaccine,status,healthcare;
+    RelativeLayout relativeLayout;
+    EditText batchNo, vaccine, status, healthcare;
     UserVaccineAppointment vaxAppt;
     Button buttonOK;
 
@@ -44,6 +44,8 @@ public class checkVaccinationStatus extends AppCompatActivity {
         buttonOK = findViewById(R.id.button_ok);
 
         getCurrentUserAppointment();
+
+
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +56,7 @@ public class checkVaccinationStatus extends AppCompatActivity {
     }
 
     private void getCurrentUserAppointment() {
+        if (vaxAppt == null) {
             db.collection("Vaccination Appointment").whereEqualTo("userID", LoginActivity.User_ID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -69,23 +72,25 @@ public class checkVaccinationStatus extends AppCompatActivity {
                             String statusFb = document.getString("status").toString();
                             status.setText(statusFb);
                         }
-                    }else{
-                        AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(checkVaccinationStatus.this);
-                        ADBuilder1.setMessage("No Appointment made");
-                        ADBuilder1.setCancelable(true);
-                        ADBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                                Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                        AlertDialog alert11 = ADBuilder1.create();
-                        alert11.setTitle("Appointment status");
-                        alert11.show();
                     }
                 }
             });
+        } else {
+            AlertDialog.Builder ADBuilder1 = new AlertDialog.Builder(checkVaccinationStatus.this);
+            ADBuilder1.setMessage("No Appointment made");
+            ADBuilder1.setCancelable(true);
+            ADBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+                    startActivity(intent);
+                }
+            });
+            AlertDialog alert11 = ADBuilder1.create();
+            alert11.setTitle("Appointment status");
+            alert11.show();
         }
     }
+}
+
