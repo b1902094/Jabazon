@@ -1,0 +1,8 @@
+<androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/apptsItems_rv"
+    tools:listitem="@layout/activity_view_appointments_page"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    xmlns:android="http://schemas.android.com/apk/res/android"/>
