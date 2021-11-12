@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jabazon">
         <activity
+            android:name=".RecordNewVaccine"
+            android:exported="true" />
+        <activity
             android:name=".VaccinesHome"
             android:exported="true" />
         <activity
