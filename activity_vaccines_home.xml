@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="24dp">
+
+    <TextView
+        android:id="@+id/tv_question_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select One to Proceed"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/morningBlue"
+        android:layout_marginTop="210dp"
+        android:layout_marginLeft="25dp"/>
+
+    <Button
+        android:id="@+id/btn_view_list"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:contentDescription="view vaccine list"
+        android:text="View Current Vaccine List"
+        app:layout_constraintTop_toBottomOf="@id/tv_question_title"
+        app:layout_constraintEnd_toEndOf="@id/tv_question_title"
+        android:padding="12dp"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:contentDescription="record new vaccine"
+        app:layout_constraintTop_toBottomOf="@id/btn_view_list"
+        app:layout_constraintEnd_toEndOf="@id/btn_view_list"
+        android:text="Record New Vaccine"
+        android:layout_marginTop="16dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
