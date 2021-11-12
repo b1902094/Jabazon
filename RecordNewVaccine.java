@@ -59,7 +59,7 @@ public class RecordNewVaccine extends AppCompatActivity {
                             vaccine.setQuantityAvailable(et_qtyAvail.getText().toString());
 
                             db.collection("Vaccines")
-                                    .document(newVacRef.getId())
+                                    .document(vaccine.getVaccineName())
                                     .set(vaccine)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -74,7 +74,7 @@ public class RecordNewVaccine extends AppCompatActivity {
                                         }
                                     });
                         } else{
-                            DocumentReference VacRef = db.collection("Vacciens")
+                            DocumentReference VacRef = db.collection("Vaccines")
                                     .document(vaccine.getVaccineName());
                             VacRef.update("vaccineId", et_vacId.getText().toString(),
                                     "vaccineName", et_vacName.getText().toString(),
