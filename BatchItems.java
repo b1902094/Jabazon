@@ -51,5 +51,12 @@ public class BatchItems implements Serializable{
 
     public void setQtyAvail(String qtyAvail) {
         this.qtyAvail = qtyAvail;
+
+    }
+
+    @Override
+    public String toString() {
+        return batchNo;
+
     }
 }
