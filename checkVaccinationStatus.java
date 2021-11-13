@@ -27,7 +27,7 @@ public class checkVaccinationStatus extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     RelativeLayout relativeLayout;
-    EditText batchNo, vaccine, status, healthcare;
+    EditText batchNo, vaccine, status, healthcare,remarks;
     UserVaccineAppointment vaxAppt;
     Button buttonOK;
 
@@ -42,9 +42,9 @@ public class checkVaccinationStatus extends AppCompatActivity {
         status = findViewById(R.id.vaccination_Status);
         healthcare = findViewById(R.id.vaccination_healthcare);
         buttonOK = findViewById(R.id.button_ok);
+        remarks = findViewById(R.id.vaccination_Remarks);
 
         getCurrentUserAppointment();
-
 
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +71,8 @@ public class checkVaccinationStatus extends AppCompatActivity {
                             healthcare.setText(healthcareFb);
                             String statusFb = document.getString("status").toString();
                             status.setText(statusFb);
+                            String remarksFb = document.getString("remarks").toString();
+                            remarks.setText(remarksFb);
                         }
                     }
                 }
@@ -93,4 +95,3 @@ public class checkVaccinationStatus extends AppCompatActivity {
         }
     }
 }
-
