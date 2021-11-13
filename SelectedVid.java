@@ -1,4 +1,3 @@
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -102,6 +101,7 @@ public class SelectedVid extends AppCompatActivity {
                                     }
                                 });
                     }
+                    dataValidation();
                 }
             }
         });
@@ -121,6 +121,7 @@ public class SelectedVid extends AppCompatActivity {
 
         });
         dataValidation();
+
 
     }
 
@@ -174,4 +175,3 @@ public class SelectedVid extends AppCompatActivity {
                     }).show();
         }
     }
-}

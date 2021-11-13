@@ -1,8 +1,8 @@
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,17 +19,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
+
 public class RecordNewVaccine extends AppCompatActivity {
 
     ImageButton imgBtnCal;
     EditText et_vacId, et_vacName, et_vacMf, et_batchNum, et_expDate, et_qtyAdmin, et_qtyAvail;
-    TextView tv_vacId, tv_vacName, tv_vacMf, tv_batchNum, tv_expDate, tv_qtyAdmin, tv_qtyAvail;
     boolean isIDvalid, isNameValid, isMfValid, isBatchNumValid, isExpDate3Valid, isQtyAdminValid, isQtyAvailValid;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Vaccines vaccine;
     Button btnRecordVaccine;
-    public static String vaxManufacturer;
-    public static String vaxExpiryDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +44,6 @@ public class RecordNewVaccine extends AppCompatActivity {
             et_batchNum = findViewById(R.id.et_new_vaccine_batch_num);
             et_qtyAdmin = findViewById(R.id.et_new_vaccine_qty_admin);
             et_qtyAvail = findViewById(R.id.et_new_vaccine_qty_avail);
-            vaxManufacturer=et_vacMf.getText().toString();
-            vaxExpiryDate=et_expDate.getText().toString();
             btnRecordVaccine = findViewById(R.id.btn_record_vaccine);
             btnRecordVaccine.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,6 +102,21 @@ public class RecordNewVaccine extends AppCompatActivity {
                     }
                 }
             });
+            imgBtnCal = findViewById(R.id.img_btn_calender);
+            imgBtnCal.setOnClickListener(v -> {
+                Calendar calendar = Calendar.getInstance();
+                int todayYear = calendar.get(Calendar.YEAR);
+                int todayMonth = calendar.get(Calendar.MONTH);
+                int todayDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(RecordNewVaccine.this,
+                        (view, year1, month1, dayOfMonth1) -> et_expDate.setText(dayOfMonth1 + "/" + (month1+1) + "/" + year1),
+                        todayYear, todayMonth, todayDayOfMonth);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+
+            });
+            dataValidation();
 
         } catch(Exception ex){
             Toast.makeText(RecordNewVaccine.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
