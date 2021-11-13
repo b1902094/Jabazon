@@ -101,7 +101,6 @@ public class SelectedVid extends AppCompatActivity {
                                     }
                                 });
                     }
-                    dataValidation();
                 }
             }
         });
@@ -121,7 +120,6 @@ public class SelectedVid extends AppCompatActivity {
 
         });
         dataValidation();
-
 
     }
 
@@ -156,7 +154,7 @@ public class SelectedVid extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.cancel();
-                    Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ManageVaccines.class);
                     startActivity(intent);
                 }
             });
@@ -166,7 +164,7 @@ public class SelectedVid extends AppCompatActivity {
 
         }
         else{
-            Snackbar.make(findViewById(R.id.constraint_layout_vaccination),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
+            Snackbar.make(findViewById(R.id.layout_new_batch),"Please fill in all the fields !", BaseTransientBottomBar.LENGTH_INDEFINITE)
                     .setAction("Close", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -175,3 +173,4 @@ public class SelectedVid extends AppCompatActivity {
                     }).show();
         }
     }
+}
