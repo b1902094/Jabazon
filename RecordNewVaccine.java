@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,8 @@ public class RecordNewVaccine extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Vaccines vaccine;
     Button btnRecordVaccine;
+    public static String vaxManufacturer;
+    public static String vaxExpiryDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class RecordNewVaccine extends AppCompatActivity {
         setContentView(R.layout.activity_record_new_vaccine);
 
         try{
+
             et_vacId = findViewById(R.id.et_new_vaccine_id);
             et_vacName = findViewById(R.id.et_new_vaccine_name);
             et_vacMf = findViewById(R.id.et_new_vaccine_mf);
@@ -41,7 +45,8 @@ public class RecordNewVaccine extends AppCompatActivity {
             et_batchNum = findViewById(R.id.et_new_vaccine_batch_num);
             et_qtyAdmin = findViewById(R.id.et_new_vaccine_qty_admin);
             et_qtyAvail = findViewById(R.id.et_new_vaccine_qty_avail);
-
+            vaxManufacturer=et_vacMf.getText().toString();
+            vaxExpiryDate=et_expDate.getText().toString();
             btnRecordVaccine = findViewById(R.id.btn_record_vaccine);
             btnRecordVaccine.setOnClickListener(new View.OnClickListener() {
                 @Override
