@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_margin="24dp"
-        tools:context=".SelectedVid">
+        tools:context=".SelectedVid"
+        android:id="@+id/layout_new_batch">
 
 
         <TextView
@@ -24,31 +25,11 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/morningBlue"/>
 
-        <TextView
-            android:id="@+id/tv_selected_vName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_new_batch_title"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Vaccine Name"
-            android:layout_marginTop="30dp"
-            android:textSize="22sp"/>
-
-        <TextView
-            android:id="@+id/tv_selected_manufacturer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_vName"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="Manufacturer"
-            android:layout_marginTop="30dp"
-            android:textSize="22sp"/>
-
         <EditText
             android:id="@+id/et_new_batchNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_manufacturer"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_batch_title"
             app:layout_constraintStart_toStartOf="parent"
             android:hint="Insert New Batch No"
             android:layout_marginTop="24dp"
@@ -64,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_new_batchNo">
 
             <ImageButton
-                android:id="@+id/img_btn_calender"
+                android:id="@+id/img_btn_selectedvid_calender"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@color/white"
@@ -105,7 +86,7 @@
             android:textSize="18sp"/>
 
         <Button
-            android:id="@+id/btn_submit"
+            android:id="@+id/btn_submit_batch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="Submit"
