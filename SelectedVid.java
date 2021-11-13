@@ -120,6 +120,8 @@ public class SelectedVid extends AppCompatActivity {
             datePickerDialog.show();
 
         });
+        dataValidation();
+
 
     }
 
