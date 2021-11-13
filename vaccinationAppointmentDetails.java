@@ -1,11 +1,18 @@
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class vaccinationAppointmentDetails extends AppCompatActivity {
@@ -18,7 +25,7 @@ public class vaccinationAppointmentDetails extends AppCompatActivity {
     EditText selectedPatientRemarks ;
     Button confirmButton;
     Button rejectedButton;
-    FirebaseFirestore db;
+    FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,5 +51,54 @@ public class vaccinationAppointmentDetails extends AppCompatActivity {
             selectedPatientRemarks.getText().toString();
             selectedPatientVaccineManufacturer.setText(uva.getManufacturer());
         }
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference uvaRef = db.collection("Vaccination Appointment")
+                        .document(uva.getVaccinationAppointmentID());
+                uvaRef.update("status", "Appointment Made! ",
+                        "remarks", "none")
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d("TAG",""+uva.getStatus());
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(vaccinationAppointmentDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+        rejectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference uvaRef = db.collection("Vaccines")
+                        .document(uva.getVaccinationAppointmentID());
+                uvaRef.update("status", "Appointment failed ",
+                        "remarks", selectedPatientRemarks.getText().toString())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                if(selectedPatientRemarks.getText().toString().isEmpty()){
+                                    selectedPatientRemarks.requestFocus();
+                                }
+                                else{
+                                    finish();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(vaccinationAppointmentDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
     }
+
 }
