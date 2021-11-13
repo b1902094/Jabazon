@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -17,25 +18,16 @@
             android:layout_marginTop="16dp"
             android:text="Batch Number"
             android:textSize="22sp"
-            android:textColor="@color/independence"/>
-
-        <TextView
-            android:id="@+id/tv_selected_num_appts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_batchNo"
+            android:textColor="@color/independence"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Number of Appointments"
-            android:textSize="22sp"
-            android:textColor="@color/independence"/>
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/tv_selected_exp_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_selected_num_appts"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_batchNo"
             app:layout_constraintStart_toStartOf="parent"
             android:text="Expiry Date of Batch"
             android:textSize="22sp"
@@ -62,5 +54,15 @@
             android:text="Quantity Available"
             android:textSize="22sp"
             android:textColor="@color/independence"/>
+
+        <Button
+            android:id="@+id/btn_view_appts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_selected_qty_admind"
+            android:layout_marginTop="20dp"
+            android:text="View Appointments"
+            android:backgroundTint="@color/morningBlue"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
