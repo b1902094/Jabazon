@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 
 public class Vaccines implements Serializable{
@@ -10,6 +9,12 @@ public class Vaccines implements Serializable{
     private String expiryDate;
     private String quantityAvailable;
     private String quantityAdministered;
+
+    public Vaccines(){
+        this.vaccineID = vaccineID;
+        this.vaccineName = vaccineName;
+        this.manufacturer = manufacturer;
+    }
 
     public String getVaccineID() {
         return vaccineID;
@@ -69,6 +74,6 @@ public class Vaccines implements Serializable{
 
     @Override
     public String toString() {
-        return vaccineID + " " + vaccineName;
+        return vaccineName;
     }
 }
