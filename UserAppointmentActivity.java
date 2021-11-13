@@ -1,9 +1,10 @@
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UserVaccineAppointment {
+public class UserVaccineAppointment implements Serializable {
 
     private String appointmentDate;
     private String batchNo;
@@ -12,6 +13,43 @@ public class UserVaccineAppointment {
     private String vaccinationAppointmentID;
     private String status;
     private String userID;
+    private String username;
+    private String ICPassport;
+    private String manufacturer;
+    private String remarks;
+    private String expiryDate;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getICPassport() {
+        return ICPassport;
+    }
+
+    public void setICPassport(String ICPassport) {
+        this.ICPassport = ICPassport;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
     public UserVaccineAppointment(){
 
@@ -73,4 +111,17 @@ public class UserVaccineAppointment {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String toString(){
+        return vaccinationAppointmentID;
+    }
+
 }
